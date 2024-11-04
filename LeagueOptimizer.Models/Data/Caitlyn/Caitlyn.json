@@ -1,0 +1,136 @@
+﻿{
+  "details": {
+    "name": "Caitlyn"
+  },
+  "base_stats": {
+    "health": {
+      "base": 580,
+      "per_level": 107
+    },
+    "health_regen": {
+      "base": 3.5,
+      "per_level": 0.55
+    },
+    "mana": {
+      "base": 315,
+      "per_level": 40
+    },
+    "mana_regen": {
+      "base": 7.4,
+      "per_level": 0.7
+    },
+    "attack_damage": {
+      "base": 60,
+      "per_level": 3.8
+    },
+    "attack_speed": {
+      "base": 0.681,
+      "per_level": 4
+    },
+    "armor": {
+      "base": 27,
+      "per_level": 4.7
+    },
+    "magic_resist": {
+      "base": 30,
+      "per_level": 1.3
+    },
+    "attack_range": 650,
+    "movement_speed": 325
+  },
+  "abilities": {
+    "passive": {
+      "champion_base_dmg": [
+        60,
+        90,
+        120
+      ],
+      "base_dmg": [
+        110,
+        115,
+        120
+      ],
+      "crit_scaling": 1.4875,
+      "ie_crit_scaling": 1.829
+    },
+    "spell_q": {
+      "cost": [
+        55,
+        60,
+        65,
+        70,
+        75
+      ],
+      "cooldown": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "base_dmg": [
+        50,
+        90,
+        130,
+        170,
+        210
+      ],
+      "total_ad_scaling": [
+        1.25,
+        1.45,
+        1.65,
+        1.85,
+        2.05
+      ],
+      "reduced_damage_multiplier": 0.6
+    },
+    "spell_w": {
+      "cost": 20,
+      "cooldown": 0.5,
+      "recharge": [
+        26,
+        22,
+        18,
+        14,
+        10
+      ],
+      "duration": [
+        30,
+        35,
+        40,
+        45,
+        50
+      ],
+      "maximum_charges": [
+        3,
+        3,
+        4,
+        4,
+        5
+      ],
+      "base_dmg": [40,85,130,175,220],
+      "bonus_ad_scaling": 0.4
+    },
+    "spell_e": {
+      "cost": 75,
+      "cooldown": [16,14,12,10,8],
+      "base_dmg": [
+        80,
+        130,
+        180,
+        230,
+        280
+      ],
+      "ap_scaling": 0.8,
+      "slow_amount": 0.5,
+      "slow_duration": 1
+    },
+    "spell_r": {
+      "cost": 100,
+      "cooldown": 90,
+      "base_dmg": [300, 500,700],
+      "bonus_ad_scaling": 1.5,
+      "crit_scaling": 0.5
+    }
+  }
+}

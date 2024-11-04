@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer", "LeagueOptimizer\LeagueOptimizer.csproj", "{9993DB99-184C-48A3-89A0-DEF972C05546}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.Models", "LeagueOptimizer.Models\LeagueOptimizer.Models.csproj", "{B05191E6-85AF-4EAE-9204-1FAE1D94F719}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9993DB99-184C-48A3-89A0-DEF972C05546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9993DB99-184C-48A3-89A0-DEF972C05546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9993DB99-184C-48A3-89A0-DEF972C05546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9993DB99-184C-48A3-89A0-DEF972C05546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B05191E6-85AF-4EAE-9204-1FAE1D94F719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B05191E6-85AF-4EAE-9204-1FAE1D94F719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B05191E6-85AF-4EAE-9204-1FAE1D94F719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B05191E6-85AF-4EAE-9204-1FAE1D94F719}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

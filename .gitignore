@@ -1,0 +1,9 @@
+obj/
+bin/
+*.user
+.DS_Store
+/Website/PilotGuard.Website/node_modules/
+/Website/PilotGuard.Website/wwwroot/Licenses/HTML/
+*.map
+TestResults/
+coverage.cobertura.xml
