@@ -1,4 +1,6 @@
-﻿namespace LeagueOptimizer.Models.ChampionStats;
+﻿using LeagueOptimizer.Models.Champions;
+
+namespace LeagueOptimizer.Models.ChampionStats;
 
 public abstract class Stat
 {
@@ -7,6 +9,11 @@ public abstract class Stat
     /// </summary>
     // [JsonPropertyName("base")]
     public double Base { get; set; }
+
+    public double BaseAt(Level level)
+    {
+        return Base + Growth * level.Value;
+    }
 
     /// <summary>
     /// The per level value of the stat
