@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using LeagueOptimizer.Abstractions.Champions.Stats.Resources;
 using LeagueOptimizer.Abstractions.Stats;
-using LeagueOptimizer.Models.ChampionStats;
 
 namespace LeagueOptimizer.Abstractions.Champions;
 
@@ -75,13 +74,13 @@ public interface IChampion
 
     IStat AbilityHaste { get; set; }
 
-    IStat MagicPenetration { get; set; }
+    IStat MagicPen { get; set; }
 
     IStat Lethality { get; set; }
 
     IStat Lifesteal { get; set; }
 
-    IStat CriticalStrike { get; set; }
+    IStat CritChance { get; set; }
 
-    IStat CriticalStrikeDamage { get; set; }
+    IStat CritDamage { get; set; }
 }

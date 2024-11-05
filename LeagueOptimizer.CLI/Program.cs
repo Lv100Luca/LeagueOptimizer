@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Services;
 using Microsoft.Extensions.Logging;
 
@@ -10,16 +11,11 @@ public static class Program
     public static void Main(string[] args)
     {
         var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
+        var factory = new ChampionFactory(reader, new Logger<ChampionFactory>(new LoggerFactory()));
+        var cait = factory.Build(ChampionNames.Caitlyn);
 
-        var data = reader.ReadStats(@"Champions/Caitlyn/Caitlyn.json");
+        cait.Level = Level.From(2);
 
-        if (data == null)
-        {
-            Console.WriteLine("Failed to read stats");
-
-            return;
-        }
-
-        Console.WriteLine(data.BaseStats);
+        Console.WriteLine(cait);
     }
 }
