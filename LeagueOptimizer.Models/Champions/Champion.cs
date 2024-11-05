@@ -36,7 +36,7 @@ public abstract class Champion : IChampion
         Lethality = new Stat(0);
         Lifesteal = new Stat(0);
         CritChance = new Stat(0);
-        CritDamage = new Stat(1.75);
+        CritDamage = new Stat(1.75m);
     }
 
     public abstract string Name { get; set; }

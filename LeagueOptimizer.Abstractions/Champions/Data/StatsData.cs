@@ -10,8 +10,8 @@ public class StatsData
     public required AttackSpeedData AttackSpeed { get; set; }
     public required StatData Armor { get; set; }
     public required StatData MagicResist { get; set; }
-    public required double AttackRange { get; set; }
-    public required double MovementSpeed { get; set; }
+    public required decimal AttackRange { get; set; }
+    public required decimal MovementSpeed { get; set; }
 
     override public string ToString()
     {

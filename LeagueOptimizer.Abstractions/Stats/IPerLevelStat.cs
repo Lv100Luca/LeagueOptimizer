@@ -6,10 +6,10 @@ public interface IPerLevelStat : IStat
 {
     // formula and value can be found here:
     // https://leagueoflegends.fandom.com/wiki/Champion_statistic under #Increasing Statistics
-    public const double SchizoPerLevelMultiplier1 = 0.7025;
-    public const double SchizoPerLevelMultiplier2 = 0.0175;
+    public const decimal SchizoPerLevelMultiplier1 = 0.7025m;
+    public const decimal SchizoPerLevelMultiplier2 = 0.0175m;
 
-    public double BaseAt(Level level)
+    public decimal BaseAt(Level level)
     {
         var g = Growth;
         var n = level.Value;
@@ -20,8 +20,8 @@ public interface IPerLevelStat : IStat
     /// <summary>
     /// The per level value of the stat
     /// </summary>
-    public double Growth { get; set; }
+    public decimal Growth { get; set; }
 
-    new public double Total(Level level)
+    new public decimal Total(Level level)
         => Base + Bonus + BaseAt(level);
 }

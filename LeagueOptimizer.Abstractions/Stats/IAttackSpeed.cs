@@ -4,12 +4,12 @@ namespace LeagueOptimizer.Abstractions.Stats;
 
 public class AttackSpeed : IPerLevelStat
 {
-    public double Base { get; set; }
-    public double Bonus { get; set; }
-    public double Growth { get; set; }
-    public double Ratio { get; set; }
+    public decimal Base { get; set; }
+    public decimal Bonus { get; set; }
+    public decimal Growth { get; set; }
+    public decimal Ratio { get; set; }
 
-    public AttackSpeed(double baseValue, double growth, double ratio)
+    public AttackSpeed(decimal baseValue, decimal growth, decimal ratio)
     {
         Base = baseValue;
         Bonus = 0;
@@ -17,7 +17,7 @@ public class AttackSpeed : IPerLevelStat
         Ratio = ratio;
     }
 
-    public double Total(Level level)
+    public decimal Total(Level level)
     {
         var g = Growth;
         var n = level.Value;

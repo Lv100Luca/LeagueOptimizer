@@ -15,7 +15,7 @@ public static class Program
         var cait = factory.Build(ChampionNames.Caitlyn);
 
         cait.Level = Level.From(3);
-        cait.AttackSpeed.Bonus = 0.25;
+        cait.AttackSpeed.Bonus = 0.25m;
 
         Console.WriteLine(cait);
     }
