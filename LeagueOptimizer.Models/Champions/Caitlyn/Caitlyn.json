@@ -22,7 +22,8 @@
     },
     "attack_speed": {
       "base": 0.681,
-      "growth": 4
+      "growth": 0.04,
+      "ratio": 0.625
     },
     "armor": {
       "base": 27,
