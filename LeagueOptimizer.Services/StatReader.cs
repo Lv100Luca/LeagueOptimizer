@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using LeagueOptimizer.Models.Champions;
-using LeagueOptimizer.Models.ChampionStats;
 using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Services;

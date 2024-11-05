@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace LeagueOptimizer.Models.ChampionStats;
+﻿namespace LeagueOptimizer.Models.ChampionStats;
 
 public class Stats
 {
