@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.CLI", "Leag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.Services", "LeagueOptimizer.Services\LeagueOptimizer.Services.csproj", "{1B72E4DF-E73D-462D-AEB6-33F4C0F03E4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.Abstractions", "LeagueOptimizer.Abstractions\LeagueOptimizer.Abstractions.csproj", "{E03E1093-F033-42F7-A573-E60478AB7BF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{1B72E4DF-E73D-462D-AEB6-33F4C0F03E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B72E4DF-E73D-462D-AEB6-33F4C0F03E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B72E4DF-E73D-462D-AEB6-33F4C0F03E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E03E1093-F033-42F7-A573-E60478AB7BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E03E1093-F033-42F7-A573-E60478AB7BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E03E1093-F033-42F7-A573-E60478AB7BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E03E1093-F033-42F7-A573-E60478AB7BF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

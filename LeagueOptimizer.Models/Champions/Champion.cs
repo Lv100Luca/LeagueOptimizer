@@ -1,51 +1,34 @@
+using LeagueOptimizer.Abstractions.Champions;
+using LeagueOptimizer.Abstractions.Champions.Stats.Resources;
+using LeagueOptimizer.Abstractions.Stats;
 using LeagueOptimizer.Models.ChampionStats;
 
 namespace LeagueOptimizer.Models.Champions;
 
-public abstract class Champion
+public abstract class Champion : IChampion
 {
-    /// <summary>
-    /// The Level of the Champion
-    /// </summary>
-    Level Level { get; set; }
+    public Level Level { get; set; } = Level.Default;
 
-    /// <summary>
-    /// The health stat of the Champion
-    /// </summary>
-    Health Health { get; set; }
+    // values set per champion
+    public IPerLevelStat Health { get; set; }
+    public IPerLevelStat HealthRegen { get; set; }
+    public ResourceType ResourceType { get; set; } = ResourceType.Mana;
+    public IPerLevelStat Resource { get; set; }
+    public IPerLevelStat ResourceRegen { get; set; }
+    public IPerLevelStat AttackDamage { get; set; }
+    public IPerLevelStat AttackSpeed { get; set; }
+    public IPerLevelStat Armor { get; set; }
+    public IPerLevelStat MagicResist { get; set; }
 
-    /// <summary>
-    /// The Health Regen stat of the Champion
-    /// </summary>
-    HealthRegen HealthRegen { get; set; }
+    public IStat AttackRange { get; set; }
+    public IStat MovementSpeed { get; set; }
 
-    /// <summary>
-    /// The Armor stat of the Champion
-    /// </summary>
-    AttackDamage AttackDamage { get; set; }
-
-    /// <summary>
-    /// The Attack Speed stat of the Champion
-    /// </summary>
-    AttackSpeed AttackSpeed { get; set; }
-
-    /// <summary>
-    /// The Magic Resist stat of the Champion
-    /// </summary>
-    Armor Armor { get; set; }
-
-    /// <summary>
-    /// The Magic Resist stat of the Champion
-    /// </summary>
-    MagicResist MagicResist { get; set; }
-
-    /// <summary>
-    /// The Attack Range stat of the Champion
-    /// </summary>
-    int AttackRange { get; set; }
-
-    /// <summary>
-    /// The Movement Speed stat of the Champion
-    /// </summary>
-    int MovementSpeed { get; set; }
+    // values set by items and runes
+    public IStat AbilityPower { get; set; }
+    public IStat AbilityHaste { get; set; }
+    public IStat MagicPenetration { get; set; }
+    public IStat Lethality { get; set; }
+    public IStat Lifesteal { get; set; }
+    public IStat CriticalStrike { get; set; }
+    public IStat CriticalStrikeDamage { get; set; }
 }

@@ -17,4 +17,8 @@
       <PackageReference Include="Vogen" Version="5.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\LeagueOptimizer.Abstractions\LeagueOptimizer.Abstractions.csproj" />
+    </ItemGroup>
+
 </Project>

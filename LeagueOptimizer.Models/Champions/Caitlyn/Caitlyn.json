@@ -8,11 +8,11 @@
       "base": 3.5,
       "growth": 0.55
     },
-    "mana": {
+    "resource": {
       "base": 315,
       "growth": 40
     },
-    "mana_regen": {
+    "resource_regen": {
       "base": 7.4,
       "growth": 0.7
     },

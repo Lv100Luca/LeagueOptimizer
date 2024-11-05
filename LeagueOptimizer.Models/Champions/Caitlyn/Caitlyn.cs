@@ -1,7 +1,6 @@
-﻿using LeagueOptimizer.Models.ChampionStats.Resources.Mana;
+﻿namespace LeagueOptimizer.Models.Champions.Caitlyn;
 
-namespace LeagueOptimizer.Models.Champions.Caitlyn;
-
-public class Caitlyn : ManaChampion
+public class Caitlyn : Champion
 {
+
 }

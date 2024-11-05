@@ -1,6 +1,6 @@
 using Vogen;
 
-namespace LeagueOptimizer.Models.Champions;
+namespace LeagueOptimizer.Abstractions.Champions;
 
 [ValueObject<int>]
 [Instance(name: "Default", value: 1)]
