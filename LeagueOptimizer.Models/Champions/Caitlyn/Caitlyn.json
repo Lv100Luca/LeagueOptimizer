@@ -5,35 +5,35 @@
   "base_stats": {
     "health": {
       "base": 580,
-      "per_level": 107
+      "growth": 107
     },
     "health_regen": {
       "base": 3.5,
-      "per_level": 0.55
+      "growth": 0.55
     },
     "mana": {
       "base": 315,
-      "per_level": 40
+      "growth": 40
     },
     "mana_regen": {
       "base": 7.4,
-      "per_level": 0.7
+      "growth": 0.7
     },
     "attack_damage": {
       "base": 60,
-      "per_level": 3.8
+      "growth": 3.8
     },
     "attack_speed": {
       "base": 0.681,
-      "per_level": 4
+      "growth": 4
     },
     "armor": {
       "base": 27,
-      "per_level": 4.7
+      "growth": 4.7
     },
     "magic_resist": {
       "base": 30,
-      "per_level": 1.3
+      "growth": 1.3
     },
     "attack_range": 650,
     "movement_speed": 325

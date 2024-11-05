@@ -1,4 +1,4 @@
-﻿using LeagueOptimizer.Models.Stats.Resources.Mana;
+﻿using LeagueOptimizer.Models.ChampionStats.Resources.Mana;
 
 namespace LeagueOptimizer.Models.Champions.Caitlyn;
 

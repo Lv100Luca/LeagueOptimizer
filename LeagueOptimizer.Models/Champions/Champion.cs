@@ -1,4 +1,4 @@
-using LeagueOptimizer.Models.Stats.Stats;
+using LeagueOptimizer.Models.ChampionStats;
 
 namespace LeagueOptimizer.Models.Champions;
 

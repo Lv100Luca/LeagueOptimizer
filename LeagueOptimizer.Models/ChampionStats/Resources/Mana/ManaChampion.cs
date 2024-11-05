@@ -1,6 +1,6 @@
 using LeagueOptimizer.Models.Champions;
 
-namespace LeagueOptimizer.Models.Stats.Resources.Mana;
+namespace LeagueOptimizer.Models.ChampionStats.Resources.Mana;
 
 public abstract class ManaChampion : Champion
 {
