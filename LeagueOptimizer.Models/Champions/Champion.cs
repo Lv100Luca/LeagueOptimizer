@@ -5,6 +5,11 @@ namespace LeagueOptimizer.Models.Champions;
 public abstract class Champion
 {
     /// <summary>
+    /// The Level of the Champion
+    /// </summary>
+    Level Level { get; set; }
+
+    /// <summary>
     /// The health stat of the Champion
     /// </summary>
     Health Health { get; set; }
