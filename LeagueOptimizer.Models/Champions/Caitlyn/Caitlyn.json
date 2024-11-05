@@ -108,12 +108,24 @@
         4,
         5
       ],
-      "base_dmg": [40,85,130,175,220],
+      "base_dmg": [
+        40,
+        85,
+        130,
+        175,
+        220
+      ],
       "bonus_ad_scaling": 0.4
     },
     "spell_e": {
       "cost": 75,
-      "cooldown": [16,14,12,10,8],
+      "cooldown": [
+        16,
+        14,
+        12,
+        10,
+        8
+      ],
       "base_dmg": [
         80,
         130,
@@ -128,7 +140,11 @@
     "spell_r": {
       "cost": 100,
       "cooldown": 90,
-      "base_dmg": [300, 500,700],
+      "base_dmg": [
+        300,
+        500,
+        700
+      ],
       "bonus_ad_scaling": 1.5,
       "crit_scaling": 0.5
     }
