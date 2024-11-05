@@ -1,4 +1,6 @@
-﻿namespace LeagueOptimizer.Models.ChampionStats;
+﻿using System.Text.Json.Serialization;
+
+namespace LeagueOptimizer.Models.ChampionStats;
 
 public class Stats
 {
@@ -14,18 +16,13 @@ public class Stats
     override public string ToString()
     {
         return $"Stats:\n" +
-               $"  Health: {Health.Base}(+{Health.Bonus})\n";
+               $"  Health:          {Health.Base} (+{Health.Growth})\n" +
+               $"  Health Regen:    {HealthRegen.Base} (+{HealthRegen.Growth})\n" +
+               $"  Attack Damage:   {AttackDamage.Base} (+{AttackDamage.Growth})\n" +
+               $"  Attack Speed:    {AttackSpeed.Base} (+{AttackSpeed.Growth})\n" +
+               $"  Armor:           {Armor.Base} (+{Armor.Growth})\n" +
+               $"  Magic Resist:    {MagicResist.Base} (+{MagicResist.Growth})\n" +
+               $"  Attack Range:    {AttackRange}\n" +
+               $"  Movement Speed:  {MovementSpeed}";
     }
-    // override public string ToString()
-    // {
-    //     return $"Stats:\n" +
-    //            $"  Health: {Health.Base}(+{Health.Bonus})\n" +
-    //            $"  Health Regen: {HealthRegen.Base}(+{HealthRegen.Bonus})\n" +
-    //            $"  Attack Damage: {AttackDamage.Base}(+{AttackDamage.Bonus})\n" +
-    //            $"  Attack Speed: {AttackSpeed.Base}(+{AttackSpeed.Bonus})\n" +
-    //            $"  Armor: {Armor.Base}(+{Armor.Bonus})\n" +
-    //            $"  Magic Resist: {MagicResist.Base}(+{MagicResist.Bonus})\n" +
-    //            $"  Attack Range: {AttackRange}\n" +
-    //            $"  Movement Speed: {MovementSpeed}";
-    // }
 }
