@@ -22,7 +22,7 @@ public abstract class Champion : IChampion
         Resource = new PerLevelStat(data.BaseStatsData.Resource);
         ResourceRegen = new PerLevelStat(data.BaseStatsData.ResourceRegen);
         AttackDamage = new PerLevelStat(data.BaseStatsData.AttackDamage);
-        AttackSpeed = new PerLevelStat(data.BaseStatsData.AttackSpeed); //todo fix me
+        AttackSpeed = new AttackSpeed(data.BaseStatsData.AttackSpeed.Base, data.BaseStatsData.AttackSpeed.Growth, data.BaseStatsData.AttackSpeed.Ratio);
         Armor = new PerLevelStat(data.BaseStatsData.Armor);
         MagicResist = new PerLevelStat(data.BaseStatsData.MagicResist);
 
@@ -49,7 +49,7 @@ public abstract class Champion : IChampion
     public IPerLevelStat Resource { get; set; }
     public IPerLevelStat ResourceRegen { get; set; }
     public IPerLevelStat AttackDamage { get; set; }
-    public IPerLevelStat AttackSpeed { get; set; }
+    public AttackSpeed AttackSpeed { get; set; }
     public IPerLevelStat Armor { get; set; }
     public IPerLevelStat MagicResist { get; set; }
 
@@ -75,11 +75,6 @@ public abstract class Champion : IChampion
                $"  Attack Damage:   {AttackDamage.Total(Level)}\n" +
                $"  Attack Speed:    {AttackSpeed.Total(Level)}\n" +
                $"  Armor:           {Armor.Total(Level)}\n" +
-               $"  Magic Resist:    {MagicResist.Total(Level)}\n" +
-               $"  Attack Damage:   {AttackDamage.Total(Level)}\n" +
-               $"  Attack Speed:    {AttackSpeed.Total(Level)}\n" +
-               $"  Armor:           {Armor.Total(Level)}\n" +
-               $"  Magic Resist:    {MagicResist.Total(Level)}\n" +
                $"  Attack Range:    {AttackRange.Total}\n" +
                $"  Movement Speed:  {MovementSpeed.Total}\n" +
                $"  Ability Power:   {AbilityPower.Total}\n" +

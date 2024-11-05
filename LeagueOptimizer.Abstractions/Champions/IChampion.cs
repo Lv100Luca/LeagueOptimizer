@@ -48,7 +48,7 @@ public interface IChampion
     /// <summary>
     /// The Attack Speed stat of the Champion
     /// </summary>
-    IPerLevelStat AttackSpeed { get; set; }
+    AttackSpeed AttackSpeed { get; set; }
 
     /// <summary>
     /// The Magic Resist stat of the Champion

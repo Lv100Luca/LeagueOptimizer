@@ -7,7 +7,7 @@ public class StatsData
     public required StatData Resource { get; set; }
     public required StatData ResourceRegen { get; set; }
     public required StatData AttackDamage { get; set; }
-    public required StatData AttackSpeed { get; set; }
+    public required AttackSpeedData AttackSpeed { get; set; }
     public required StatData Armor { get; set; }
     public required StatData MagicResist { get; set; }
     public required double AttackRange { get; set; }

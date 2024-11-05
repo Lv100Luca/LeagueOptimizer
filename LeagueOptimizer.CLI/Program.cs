@@ -14,7 +14,8 @@ public static class Program
         var factory = new ChampionFactory(reader, new Logger<ChampionFactory>(new LoggerFactory()));
         var cait = factory.Build(ChampionNames.Caitlyn);
 
-        cait.Level = Level.From(2);
+        cait.Level = Level.From(3);
+        cait.AttackSpeed.Bonus = 0.25;
 
         Console.WriteLine(cait);
     }
