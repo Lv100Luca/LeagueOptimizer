@@ -1,5 +1,6 @@
 ﻿namespace LeagueOptimizer.Abstractions.Stats;
 
+// todo prob obsolete
 public interface IStat
 {
     /// <summary>

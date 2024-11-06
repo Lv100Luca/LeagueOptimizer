@@ -23,7 +23,8 @@ public class CriticalDamageResult : DamageResult
     {
         // Average damage multiplier = 1 + (Critical chance × (0.75 + Bonus critical damage))
         CriticalDamage = critDamageMultiplier * damage;
-        var multiplier = 1m + (critChance * (critDamageMultiplier - 1));
+        // todo think about - 1 workaround
+        var multiplier = 1m + critChance * (critDamageMultiplier - 1);
         AverageDamage = damage * multiplier;
     }
 
