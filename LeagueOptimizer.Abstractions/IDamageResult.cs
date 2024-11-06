@@ -1,7 +1,7 @@
 namespace LeagueOptimizer.Abstractions;
 
-public interface IDamageResult
+public class DamageResult(DamageType damageType, decimal damage)
 {
-    DamageType DamageType { get; set; }
-    decimal Damage { get; set; }
+    public DamageType DamageType { get; set; } = damageType;
+    public decimal Damage { get; set; } = damage;
 }
