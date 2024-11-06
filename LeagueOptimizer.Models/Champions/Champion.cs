@@ -10,6 +10,8 @@ public abstract class Champion : IChampion
 {
     private readonly ILogger<Champion> logger;
 
+    // todo: add a methods to get stats, not having to pass in the level
+    // todo: add method for calculating normal attack dmg
     protected Champion(ChampionData data, ILogger<Champion> logger)
     {
         this.logger = logger;
