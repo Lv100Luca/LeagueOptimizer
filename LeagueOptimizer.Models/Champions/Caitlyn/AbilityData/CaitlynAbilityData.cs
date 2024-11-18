@@ -10,8 +10,8 @@ public class CaitlynAbilityData
 
     public class PassiveData
     {
-        public List<int> ChampionBaseDmg { get; set; }
-        public List<int> BaseDmg { get; set; }
+        public List<decimal> ChampionTotalAdScaling { get; set; }
+        public List<decimal> TotalAdScaling { get; set; }
         public decimal CritScaling { get; set; }
         public decimal IeCritScaling { get; set; }
     }
