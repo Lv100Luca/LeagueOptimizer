@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Services;
 
-// todo add interface
 public class StatReader(ILogger<StatReader> logger) : IStatReader
 {
     private readonly static JsonSerializerOptions JsonSerializerOptions = new()

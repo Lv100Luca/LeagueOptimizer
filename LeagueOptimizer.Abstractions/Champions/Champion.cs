@@ -7,7 +7,6 @@ public abstract class Champion
 {
     private readonly ILogger<Champion> logger;
 
-    // todo: add a methods to get stats, not having to pass in the level
     // todo: add method for calculating normal attack dmg
     // todo: figure out if items set stats or stats will be calculated from items
     protected Champion(StatsData data, ILogger<Champion> logger)
