@@ -25,6 +25,10 @@ public static class Program
         Console.WriteLine(cait);
 
         Console.WriteLine("=================");
+
+        Console.Out.WriteLine(cait.AbilitiesToString());
+
+        Console.WriteLine("=================");
         Console.WriteLine("Normal Attack Damage:");
         Console.WriteLine(cait.CalculateNormalAttackDamage());
     }
