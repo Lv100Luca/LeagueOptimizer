@@ -155,7 +155,7 @@ public abstract class Champion
     public decimal CritChance { get; set; } = 0m;
 
     // CritDamage
-    public decimal CritDamage { get; set; } = 0m;
+    public decimal CritDamage { get; set; } = 1.75m;
 
     public override string ToString()
     {
