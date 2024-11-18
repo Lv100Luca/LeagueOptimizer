@@ -49,7 +49,7 @@
         1.2
       ],
       "crit_scaling": 1.4875,
-      "ie_crit_scaling": 1.829
+      "ie_crit_bonus_scaling": 0.34
     },
     "spell_q": {
       "cost": [

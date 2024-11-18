@@ -17,11 +17,19 @@ public static class Program
         var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
             new Logger<Caitlyn>(new LoggerFactory()))
         {
-            Level = Level.From(7),
-            CritChance = 0.50m,
+            Level = Level.From(18),
+            BonusAttackDamage = 320,
+            CritChance = 1m,
+            BonusCritDamage = 0.4m,
+
+            BonusAttackSpeed = 0.35m,
+
+            TargetIsTrapped = true,
+            TargetIsChampion = true,
+            HasHeadshotActive = true,
+
         };
 
-        cait.HasHeadshotActive = true;
         Console.WriteLine(cait);
 
         // Console.WriteLine("=================");
@@ -29,6 +37,13 @@ public static class Program
 
         Console.WriteLine("=================");
         Console.WriteLine("Normal Attack Damage:");
+        Console.Out.WriteLine("Has IE: " + cait.HasIE);
+        Console.Out.WriteLine("Headshot: " + cait.HasHeadshotActive);
+        Console.Out.WriteLine("Target is Trapped: " + cait.TargetIsTrapped);
         Console.WriteLine(cait.CalculateNormalAttackDamage());
+
+        Console.WriteLine("=================");
+        Console.WriteLine("Spell R Damage:");
+        Console.Out.WriteLine(cait.CalculateSpellRDamage());
     }
 }

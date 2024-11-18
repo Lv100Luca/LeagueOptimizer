@@ -20,7 +20,6 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
     public bool TargetIsChampion { get; set; } = true;
 
-    // todo move to Champion.cs
     public CriticalDamageResult CalculateNormalAttackDamage()
     {
         // consider non crit, crit and average damage
@@ -33,32 +32,74 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         return new CriticalDamageResult(DamageType.Physical, dmg, this, headshotBonusDamage);
     }
 
+    public bool IsPrimaryQTarget { get; set; } = true;
+
+    public DamageResult CalculateQSpellDamage()
+    {
+        var AbilityLevel = 5; // todo implement for champions
+
+        var qBaseDamage = AbilitiesData.SpellQ.BaseDmg[AbilityLevel - 1];
+
+        var qAdScaling = AbilitiesData.SpellQ.TotalAdScaling[AbilityLevel - 1];
+
+        var qDamage = qBaseDamage + qAdScaling * BonusAttackDamage;
+
+        if (IsPrimaryQTarget)
+            qDamage *= AbilitiesData.SpellQ.ReducedDamageMultiplier;
+
+        return new DamageResult(DamageType.Physical, qDamage);
+    }
+
+    public DamageResult CalculateSpellEDamage()
+    {
+        var AbilityLevel = 5;
+
+        var eBaseDamage = AbilitiesData.SpellE.BaseDmg[AbilityLevel - 1];
+
+        var eApScaling = AbilitiesData.SpellE.ApScaling;
+
+        return new DamageResult(DamageType.Magic, eBaseDamage * eApScaling);
+    }
+
+    public DamageResult CalculateSpellRDamage()
+    {
+        var AbilityLevel = 3;
+
+        var rBaseDamage = AbilitiesData.SpellR.BaseDmg[AbilityLevel - 1];
+
+        var rBonusAdScaling = AbilitiesData.SpellR.BonusAdScaling;
+
+        var rCritChanceDamageMultiplier = 1 + AbilitiesData.SpellR.CritScaling * CritChance;
+
+        Console.Out.WriteLine("rCritChanceDamageMultiplier: " + rCritChanceDamageMultiplier);
+
+        var rDamage = rBaseDamage * rBonusAdScaling * rCritChanceDamageMultiplier;
+
+        return new DamageResult(DamageType.Physical, rDamage);
+    }
+
     [Obsolete("placeholder until items are implemented")]
-    private bool HasIE { get; set; } = false;
+    public bool HasIE { get; set; } = true;
 
     private decimal CalculateHeadshotBonusDamage()
     {
         if (!HasHeadshotActive && !TargetIsTrapped)
             return 0;
 
-        // this returns the different scalings at level 1, 7 and 13
-        int scalingIndex = (Level.Value - 1) / 6;
+        var scalingIndex = Math.Clamp((Level.Value - 1) / 6, 0, 2);
 
-        Console.Out.WriteLine("scalingIndex: " + scalingIndex);
-
-        var headshotScaling = TargetIsChampion
+        var baseHeadshotScaling = TargetIsChampion
             ? AbilitiesData.Passive.ChampionTotalAdScaling[scalingIndex]
             : AbilitiesData.Passive.TotalAdScaling[scalingIndex];
 
-        Console.Out.WriteLine("headshotScaling: " + headshotScaling);
-
-        var baseHeadshotDamage = headshotScaling * TotalAttackDamage;
-
         // todo figure out if this is how this works
-        var headshotCritBonusDamage =
-            HasIE ? AbilitiesData.Passive.IeCritScaling : AbilitiesData.Passive.CritScaling * CritChance;
+        // crit scaling plus additional scaling when HasIE is true
+        var critHeadshotScaling =
+            (AbilitiesData.Passive.CritScaling + (HasIE ? AbilitiesData.Passive.IeCritBonusScaling : 0)) * CritChance;
 
-        var headshotDamage = baseHeadshotDamage + headshotCritBonusDamage;
+        var headshotScaling = baseHeadshotScaling + critHeadshotScaling;
+
+        var headshotDamage = headshotScaling * TotalAttackDamage;
 
         if (TargetIsTrapped)
             headshotDamage += CalculateEnemyTrappedBonusDamage();
@@ -68,9 +109,9 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
     private decimal CalculateEnemyTrappedBonusDamage()
     {
-        var AbilityLevel = 1; // todo implement for champions
+        var AbilityLevel = 5; // todo implement for champions
 
-        var trapBaseDamage = AbilitiesData.SpellW.BaseDmg[AbilityLevel];
+        var trapBaseDamage = AbilitiesData.SpellW.BaseDmg[AbilityLevel - 1];
 
         return trapBaseDamage + (AbilitiesData.SpellW.BonusAdScaling * BonusAttackDamage);
     }
@@ -82,7 +123,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
                $"    Champion Base Damage: {string.Join(", ", AbilitiesData.Passive.ChampionTotalAdScaling)}\n" +
                $"    Base Damage:          {string.Join(", ", AbilitiesData.Passive.TotalAdScaling)}\n" +
                $"    Crit Scaling:         {AbilitiesData.Passive.CritScaling:P}\n" +
-               $"    IE Crit Scaling:      {AbilitiesData.Passive.IeCritScaling:P}\n" +
+               $"    IE Crit Scaling:      {AbilitiesData.Passive.IeCritBonusScaling:P}\n" +
                $"  Spell Q:\n" +
                $"    Cost:                 {string.Join(", ", AbilitiesData.SpellQ.Cost)}\n" +
                $"    Cooldown:             {string.Join(", ", AbilitiesData.SpellQ.Cooldown)}\n" +
