@@ -38,15 +38,15 @@
   },
   "abilities": {
     "passive": {
-      "champion_base_dmg": [
-        60,
-        90,
-        120
+      "champion_total_ad_scaling": [
+        0.6,
+        0.9,
+        1.2
       ],
-      "base_dmg": [
-        110,
-        115,
-        120
+      "total_ad_scaling": [
+        1.1,
+        1.15,
+        1.2
       ],
       "crit_scaling": 1.4875,
       "ie_crit_scaling": 1.829
