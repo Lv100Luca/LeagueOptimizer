@@ -14,19 +14,18 @@ public static class Program
     {
         var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
 
-        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath), new Logger<Caitlyn>(new LoggerFactory()))
-            {
-                Level = Level.From(3),
-                BonusAttackSpeed = 0.25m,
-                BaseAp = 100,
-                CritChance = 0.50m,
-            };
+        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+            new Logger<Caitlyn>(new LoggerFactory()))
+        {
+            Level = Level.From(7),
+            CritChance = 0.50m,
+        };
 
+        cait.HasHeadshotActive = true;
         Console.WriteLine(cait);
 
-        Console.WriteLine("=================");
-
-        Console.Out.WriteLine(cait.AbilitiesToString());
+        // Console.WriteLine("=================");
+        // Console.Out.WriteLine(cait.AbilitiesToString());
 
         Console.WriteLine("=================");
         Console.WriteLine("Normal Attack Damage:");
