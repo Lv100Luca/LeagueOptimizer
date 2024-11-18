@@ -1,6 +1,4 @@
 using LeagueOptimizer.Abstractions.Champions.Data;
-using LeagueOptimizer.Abstractions.Champions.Stats.Resources;
-using LeagueOptimizer.Abstractions.Stats;
 using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Abstractions.Champions;
@@ -180,30 +178,29 @@ public abstract class Champion
                $"  Crit Damage:     {CritDamage:P}\n";
     }
 
+    private const decimal SchizoPerLevelMultiplier1 = 0.7025m;
+    private const decimal SchizoPerLevelMultiplier2 = 0.0175m;
+
     private decimal CalculatePerLevelStat(decimal baseValue, decimal growth)
     {
         // formula and value can be found here:
         // https://leagueoflegends.fandom.com/wiki/Champion_statistic under #Increasing Statistics
-        const decimal schizoPerLevelMultiplier1 = 0.7025m;
-        const decimal schizoPerLevelMultiplier2 = 0.0175m;
 
         var g = growth;
         var n = Level.Value;
 
-        return baseValue + (g * (n - 1) * (schizoPerLevelMultiplier1 + schizoPerLevelMultiplier2 * (n - 1)));
+        return baseValue + (g * (n - 1) * (SchizoPerLevelMultiplier1 + SchizoPerLevelMultiplier2 * (n - 1)));
     }
 
     private decimal CalculateAttackSpeed(decimal baseValue, decimal growth, decimal bonus, decimal ratio)
     {
         // formula and value can be found here:
         // https://leagueoflegends.fandom.com/wiki/Champion_statistic under #Increasing Statistics
-        const decimal schizoPerLevelMultiplier1 = 0.7025m;
-        const decimal schizoPerLevelMultiplier2 = 0.0175m;
 
         var g = growth;
         var n = Level.Value;
 
         return baseValue + (bonus + g * (n - 1) *
-            (IPerLevelStat.SchizoPerLevelMultiplier1 + IPerLevelStat.SchizoPerLevelMultiplier2 * (n - 1))) * ratio;
+            (SchizoPerLevelMultiplier1 + SchizoPerLevelMultiplier2 * (n - 1))) * ratio;
     }
 }
