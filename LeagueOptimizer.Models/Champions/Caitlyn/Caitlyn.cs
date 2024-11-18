@@ -1,10 +1,11 @@
 ﻿using LeagueOptimizer.Abstractions;
 using LeagueOptimizer.Abstractions.Champions.Data;
+using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
 using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Models.Champions.Caitlyn;
 
-public class Caitlyn(ChampionData data, ILogger<Caitlyn> logger) : Champion(data, logger)
+public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> logger) : Champion(data.BaseStatsData, logger)
 {
     public const string FilePath = "Champions/Caitlyn/Caitlyn.json";
 

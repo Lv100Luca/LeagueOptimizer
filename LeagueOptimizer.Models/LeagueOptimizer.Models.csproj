@@ -22,8 +22,4 @@
       <ProjectReference Include="..\LeagueOptimizer.Abstractions\LeagueOptimizer.Abstractions.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ChampionStats\" />
-    </ItemGroup>
-
 </Project>

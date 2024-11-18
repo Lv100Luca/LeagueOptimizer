@@ -13,24 +13,24 @@ public abstract class Champion : IChampion
     // todo: add a methods to get stats, not having to pass in the level
     // todo: add method for calculating normal attack dmg
     // todo: figure out if items set stats or stats will be calculated from items
-    protected Champion(ChampionData data, ILogger<Champion> logger)
+    protected Champion(StatsData data, ILogger<Champion> logger)
     {
         this.logger = logger;
 
         Level = Level.Default;
 
         // values set from data
-        Health = new PerLevelStat(data.BaseStatsData.Health);
-        HealthRegen = new PerLevelStat(data.BaseStatsData.HealthRegen);
-        Resource = new PerLevelStat(data.BaseStatsData.Resource);
-        ResourceRegen = new PerLevelStat(data.BaseStatsData.ResourceRegen);
-        AttackDamage = new PerLevelStat(data.BaseStatsData.AttackDamage);
-        AttackSpeed = new AttackSpeed(data.BaseStatsData.AttackSpeed.Base, data.BaseStatsData.AttackSpeed.Growth, data.BaseStatsData.AttackSpeed.Ratio);
-        Armor = new PerLevelStat(data.BaseStatsData.Armor);
-        MagicResist = new PerLevelStat(data.BaseStatsData.MagicResist);
+        Health = new PerLevelStat(data.Health);
+        HealthRegen = new PerLevelStat(data.HealthRegen);
+        Resource = new PerLevelStat(data.Resource);
+        ResourceRegen = new PerLevelStat(data.ResourceRegen);
+        AttackDamage = new PerLevelStat(data.AttackDamage);
+        AttackSpeed = new AttackSpeed(data.AttackSpeed.Base, data.AttackSpeed.Growth, data.AttackSpeed.Ratio);
+        Armor = new PerLevelStat(data.Armor);
+        MagicResist = new PerLevelStat(data.MagicResist);
 
-        AttackRange = new Stat(data.BaseStatsData.AttackRange);
-        MovementSpeed = new Stat(data.BaseStatsData.MovementSpeed);
+        AttackRange = new Stat(data.AttackRange);
+        MovementSpeed = new Stat(data.MovementSpeed);
 
         // initialize values with defaults
         AbilityPower = new Stat(0);
