@@ -6,6 +6,6 @@ namespace LeagueOptimizer.Abstractions.Champions.Data;
 public class ChampionData<TChampionAbilityData>
 {
     [JsonPropertyName("base_stats")]
-    public StatsData BaseStatsData { get; init; }
+    public StatsData BaseStats { get; init; }
     public TChampionAbilityData Abilities { get; init; }
 }

@@ -8,7 +8,7 @@ namespace LeagueOptimizer.Services;
 
 public class ChampionFactory(StatReader statReader, ILogger<ChampionFactory> logger) : IChampionFactory
 {
-    public IChampion Build(ChampionNames championName)
+    public Champion Build(ChampionNames championName)
     {
         return championName switch
         {

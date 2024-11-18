@@ -28,8 +28,8 @@ public class CriticalDamageResult : DamageResult
         AverageDamage = damage * multiplier;
     }
 
-    public CriticalDamageResult(DamageType damageType, decimal damage, IChampion champion) : this(damageType, damage,
-        champion.CritChance.Total, champion.CritDamage.Total)
+    public CriticalDamageResult(DamageType damageType, decimal damage, Champion champion) : this(damageType, damage,
+        champion.CritChance, champion.CritDamage)
     {
     }
 
