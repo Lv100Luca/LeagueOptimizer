@@ -106,9 +106,9 @@ public abstract class Champion
     // Armor
     public decimal BaseArmor => CalculatePerLevelStat(BaseStatsData.Armor.Base, BaseStatsData.Armor.Growth);
     public decimal BonusArmor { get; set; } = 0m;
-    public decimal MaxArmor => CalculateMaxArmor();
+    public decimal TotalArmor => CalculateTotalArmor();
 
-    private decimal CalculateMaxArmor()
+    private decimal CalculateTotalArmor()
     {
         // todo: add armor modifier
         return BaseArmor + BonusArmor;
@@ -117,9 +117,9 @@ public abstract class Champion
     // MagicResist
     public decimal BaseMagicResist => CalculatePerLevelStat(BaseStatsData.MagicResist.Base, BaseStatsData.MagicResist.Growth);
     public decimal BonusMagicResist { get; set; } = 0m;
-    public decimal MaxMagicResist => CalculateMaxMagicResist();
+    public decimal TotalMagicResist => CalculateTotalMagicResist();
 
-    private decimal CalculateMaxMagicResist()
+    private decimal CalculateTotalMagicResist()
     {
         // todo: add magic resist modifier
         return BaseMagicResist + BonusMagicResist;
@@ -166,8 +166,8 @@ public abstract class Champion
                $"  Resource ({ResourceType}): {MaxResource} (Regen: {TotalResourceRegen})\n" +
                $"  Attack Damage:   {TotalAttackDamage}\n" +
                $"  Attack Speed:    {TotalAttackSpeed:F2}\n" +
-               $"  Armor:           {MaxArmor}\n" +
-               $"  Magic Resist:    {MaxMagicResist}\n" +
+               $"  Armor:           {TotalArmor}\n" +
+               $"  Magic Resist:    {TotalMagicResist}\n" +
                $"  Attack Range:    {TotalAttackRange}\n" +
                $"  Movement Speed:  {TotalMovementSpeed}\n" +
                $"  Ability Power:   {BaseAp * ApMultiplier}\n" +
