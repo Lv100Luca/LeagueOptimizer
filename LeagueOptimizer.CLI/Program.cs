@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using LeagueOptimizer.Abstractions.Champions;
+using LeagueOptimizer.Models;
 using LeagueOptimizer.Models.Champions.Caitlyn;
 using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
 using LeagueOptimizer.Services;
@@ -11,6 +12,55 @@ namespace League.Optimizer.CLI;
 public static class Program
 {
     public static void Main(string[] args)
+    {
+        TestResistCalculation1();
+        TestResistCalculation2();
+    }
+
+    private static void TestResistCalculation1()
+    {
+        var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
+
+        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+            new Logger<Caitlyn>(new LoggerFactory()))
+        {
+            Level = Level.From(18),
+            Lethality = 10,
+            BonusArmorPen = 0.45m,
+        };
+
+        var target = new TargetDummy
+        {
+            BaseArmor = 100,
+            BonusArmor = 200,
+
+            FlatArmorReduction = 30,
+            ArmorReduction = 0.3m,
+        };
+
+        cait.CalculateTargetResistance(target);
+    }
+
+    private static void TestResistCalculation2()
+    {
+        var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
+
+        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+            new Logger<Caitlyn>(new LoggerFactory()))
+        {
+            Level = Level.From(18),
+        };
+
+        var target = new TargetDummy
+        {
+            BaseArmor = 18,
+            FlatArmorReduction = 30,
+        };
+
+        cait.CalculateTargetResistance(target);
+    }
+
+    private static void TestAbilityDamageCalculation()
     {
         var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
 
@@ -27,7 +77,6 @@ public static class Program
             TargetIsTrapped = true,
             TargetIsChampion = true,
             HasHeadshotActive = true,
-
         };
 
         Console.WriteLine(cait);

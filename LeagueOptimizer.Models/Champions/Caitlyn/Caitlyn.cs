@@ -78,6 +78,21 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         return new DamageResult(DamageType.Physical, rDamage);
     }
 
+    public DamageResult CalculateTestAbilityDamage(ITarget target)
+    {
+        var bonusAdScaling = 1m;
+
+        var percentMaxHpDamage = 0.5m;
+
+        var abilityBaseDamage = BonusAttackDamage * bonusAdScaling + 200;
+
+        var maxHpDamage = target.MaxHp * percentMaxHpDamage;
+
+        var totalDamage = abilityBaseDamage + maxHpDamage;
+
+        return new DamageResult(DamageType.Physical, totalDamage);
+    }
+
     [Obsolete("placeholder until items are implemented")]
     public bool HasIE { get; set; } = true;
 

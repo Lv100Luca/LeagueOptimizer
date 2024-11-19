@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Abstractions.Champions;
 
-public abstract class Champion
+public abstract class Champion : ITarget
 {
     private readonly ILogger<Champion> logger;
 
@@ -14,6 +14,9 @@ public abstract class Champion
         this.logger = logger;
 
         BaseStatsData = data;
+
+        BaseArmor = CalculatePerLevelStat(BaseStatsData.Armor.Base, BaseStatsData.Armor.Growth);
+        BaseMagicResist = CalculatePerLevelStat(BaseStatsData.MagicResist.Base, BaseStatsData.MagicResist.Growth);
     }
 
     public abstract string Name { get; set; }
@@ -103,8 +106,9 @@ public abstract class Champion
         return BaseAttackSpeed + BonusAttackSpeed;
     }
 
+    // todo use private setting used by a function called 'ReduceResistance' or similar
     // Armor
-    public decimal BaseArmor => CalculatePerLevelStat(BaseStatsData.Armor.Base, BaseStatsData.Armor.Growth);
+    public decimal BaseArmor { get; set; } = 0m;
     public decimal BonusArmor { get; set; } = 0m;
     public decimal TotalArmor => CalculateTotalArmor();
 
@@ -115,7 +119,7 @@ public abstract class Champion
     }
 
     // MagicResist
-    public decimal BaseMagicResist => CalculatePerLevelStat(BaseStatsData.MagicResist.Base, BaseStatsData.MagicResist.Growth);
+    public decimal BaseMagicResist { get; set; } = 0m;
     public decimal BonusMagicResist { get; set; } = 0m;
     public decimal TotalMagicResist => CalculateTotalMagicResist();
 
@@ -143,10 +147,28 @@ public abstract class Champion
     public decimal AbilityHaste { get; set; } = 0m;
 
     // MagicPen
+    public decimal FlatMagicPen { get; set; } = 0m;
     public decimal MagicPen { get; set; } = 0m;
+
+    /// <summary>
+    /// Magic Pen that only applies to bonus resistances
+    /// </summary>
+    public decimal BonusMagicPen { get; set; } = 0m;
+
+    public decimal FlatMagicResistReduction { get; set; } = 0m;
+    public decimal MagicResistReduction { get; set; } = 0m;
 
     // Lethality
     public decimal Lethality { get; set; } = 0m;
+    public decimal ArmorPen { get; set; } = 0m;
+
+    /// <summary>
+    /// Armor Pen that only applies to bonus resistances
+    /// </summary>
+    public decimal BonusArmorPen { get; set; } = 0m;
+
+    public decimal FlatArmorReduction { get; set; } = 0m;
+    public decimal ArmorReduction { get; set; } = 0m;
 
     // Lifesteal
     public decimal Lifesteal { get; set; } = 0m;
@@ -158,26 +180,6 @@ public abstract class Champion
     public decimal BaseCritDamage { get; set; } = 1.75m;
     public decimal BonusCritDamage { get; set; }
     public decimal CritDamage => BaseCritDamage + BonusCritDamage;
-
-    public override string ToString()
-    {
-        return $"{Name} (Level {Level.Value}): \n" +
-               $"  Health:          {MaxHp} (Regen: {TotalHpRegen})\n" +
-               $"  Resource ({ResourceType}): {MaxResource} (Regen: {TotalResourceRegen})\n" +
-               $"  Attack Damage:   {TotalAttackDamage}\n" +
-               $"  Attack Speed:    {TotalAttackSpeed:F2}\n" +
-               $"  Armor:           {TotalArmor}\n" +
-               $"  Magic Resist:    {TotalMagicResist}\n" +
-               $"  Attack Range:    {TotalAttackRange}\n" +
-               $"  Movement Speed:  {TotalMovementSpeed}\n" +
-               $"  Ability Power:   {BaseAp * ApMultiplier}\n" +
-               $"  Ability Haste:   {AbilityHaste}\n" +
-               $"  Magic Pen:       {MagicPen}\n" +
-               $"  Lethality:       {Lethality}\n" +
-               $"  Lifesteal:       {Lifesteal:P}\n" +
-               $"  Crit Chance:     {CritChance:P}\n" +
-               $"  Crit Damage:     {CritDamage:P}\n";
-    }
 
     private const decimal SchizoPerLevelMultiplier1 = 0.7025m;
     private const decimal SchizoPerLevelMultiplier2 = 0.0175m;
@@ -203,5 +205,103 @@ public abstract class Champion
 
         return baseValue + (bonus + g * (n - 1) *
             (SchizoPerLevelMultiplier1 + SchizoPerLevelMultiplier2 * (n - 1))) * ratio;
+    }
+
+    override public string ToString()
+    {
+        return $"{Name} (Level {Level.Value}): \n" +
+               $"  Health:          {MaxHp} (Regen: {TotalHpRegen})\n" +
+               $"  Resource ({ResourceType}): {MaxResource} (Regen: {TotalResourceRegen})\n" +
+               $"  Attack Damage:   {TotalAttackDamage}\n" +
+               $"  Attack Speed:    {TotalAttackSpeed:F2}\n" +
+               $"  Armor:           {TotalArmor}\n" +
+               $"  Magic Resist:    {TotalMagicResist}\n" +
+               $"  Attack Range:    {TotalAttackRange}\n" +
+               $"  Movement Speed:  {TotalMovementSpeed}\n" +
+               $"  Ability Power:   {BaseAp * ApMultiplier}\n" +
+               $"  Ability Haste:   {AbilityHaste}\n" +
+               $"  Magic Pen:       {MagicPen}\n" +
+               $"  Lethality:       {Lethality}\n" +
+               $"  Lifesteal:       {Lifesteal:P}\n" +
+               $"  Crit Chance:     {CritChance:P}\n" +
+               $"  Crit Damage:     {CritDamage:P}\n";
+    }
+
+    // public decimal TestResistCalculation(ITarget target)
+    // {
+
+    // }
+
+    public decimal CalculateTargetResistance(ITarget target)
+    {
+        // todo create generic method for both armor and mr
+        /* todo keep in mind that:
+         Armor Reduction REDUCES the armor
+         Penetration just ignores the armor
+         */
+
+        // Armor Reduction
+        // Flat armor reduction
+        if (target.FlatArmorReduction > 0)
+        {
+            var newTotal = target.TotalArmor - target.FlatArmorReduction;
+            var flatReductionscalingFactor = newTotal / target.TotalArmor;
+
+            target.BaseArmor *= flatReductionscalingFactor;
+            target.BonusArmor *= flatReductionscalingFactor;
+
+
+            if (target.TotalArmor < 0)
+            {
+                Console.Out.WriteLine($"Armor({target.TotalArmor:F1}) is lower than 0, exiting");
+                return target.TotalArmor;
+            }
+            Console.Out.WriteLine($"Armor after flat reduction: ({target.BaseArmor:F1}/{target.BonusArmor:F1}) {target.TotalArmor:F1}");
+        }
+
+
+        // percent reduction
+        if (target.ArmorReduction > 0)
+        {
+            var percentReductionScalingFactor = 1 - target.ArmorReduction;
+            target.BaseArmor *= percentReductionScalingFactor;
+            target.BonusArmor *= percentReductionScalingFactor;
+
+            Console.Out.WriteLine(
+                $"Armor after percent reduction: ({target.BaseArmor:F1}/{target.BonusArmor:F1}) {target.TotalArmor:F1}");
+        }
+
+        var totalArmor = target.TotalArmor;
+
+        // Percent Bonus Armor Pen
+        if (BonusArmorPen > 0)
+        {
+            var percentBonusArmorPenScalingFactor = 1 - BonusArmorPen;
+
+            totalArmor = target.BaseArmor + (target.BonusArmor * percentBonusArmorPenScalingFactor);
+
+            Console.Out.WriteLine($"Armor after percent bonus pen: {totalArmor:F1}");
+        }
+
+        //Percent Armor Pen
+        // todo how does total and bonus armor pen work together?
+        if (ArmorPen > 0)
+        {
+            var percentArmorPenScalingFactor = 1 - ArmorPen;
+
+            totalArmor *= percentArmorPenScalingFactor;
+
+            Console.Out.WriteLine($"Armor after percent armor pen: {totalArmor:F1}");
+        }
+
+        // Flat Armor Pen
+        if (Lethality > 0)
+        {
+            totalArmor -= Lethality;
+
+            Console.Out.WriteLine($"Armor after flat armor pen: {totalArmor:F1}");
+        }
+
+        return totalArmor;
     }
 }
