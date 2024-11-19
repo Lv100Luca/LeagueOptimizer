@@ -1,4 +1,4 @@
-namespace LeagueOptimizer.Abstractions.Champions.Stats.Resources;
+namespace LeagueOptimizer.Abstractions.Champions;
 
 public enum ResourceType
 {

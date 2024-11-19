@@ -4,5 +4,5 @@ namespace LeagueOptimizer.Abstractions.Services;
 
 public interface IStatReader
 {
-    ChampionData ReadStats(string path);
+    ChampionData<TChampionAbilityData> ReadStats<TChampionAbilityData>(string path);
 }

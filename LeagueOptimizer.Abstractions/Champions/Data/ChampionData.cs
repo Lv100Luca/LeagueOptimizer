@@ -2,9 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace LeagueOptimizer.Abstractions.Champions.Data;
 
-public class ChampionData
+// add generic type for abilities
+public class ChampionData<TChampionAbilityData>
 {
     [JsonPropertyName("base_stats")]
-    public StatsData BaseStatsData { get; set; }
-    public object Abilities { get; set; }
+    public StatsData BaseStats { get; init; }
+    public TChampionAbilityData Abilities { get; init; }
 }

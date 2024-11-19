@@ -2,6 +2,7 @@
 
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Models.Champions.Caitlyn;
+using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
 using LeagueOptimizer.Services;
 using Microsoft.Extensions.Logging;
 
@@ -12,22 +13,37 @@ public static class Program
     public static void Main(string[] args)
     {
         var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
-        var factory = new ChampionFactory(reader, new Logger<ChampionFactory>(new LoggerFactory()));
-        // todo fix casting
-        var cait = (Caitlyn)factory.Build(ChampionNames.Caitlyn);
 
-        cait.Level = Level.From(3);
+        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+            new Logger<Caitlyn>(new LoggerFactory()))
+        {
+            Level = Level.From(18),
+            BonusAttackDamage = 320,
+            CritChance = 1m,
+            BonusCritDamage = 0.4m,
 
-        cait.AttackDamage.Base = 100;
-        cait.AttackDamage.Growth = 0;
-        cait.AttackSpeed.Bonus = 0.25m;
-        cait.AbilityPower.Bonus = 100m;
-        cait.CritChance.Bonus = 0.50m;
+            BonusAttackSpeed = 0.35m,
+
+            TargetIsTrapped = true,
+            TargetIsChampion = true,
+            HasHeadshotActive = true,
+
+        };
 
         Console.WriteLine(cait);
 
+        // Console.WriteLine("=================");
+        // Console.Out.WriteLine(cait.AbilitiesToString());
+
         Console.WriteLine("=================");
         Console.WriteLine("Normal Attack Damage:");
+        Console.Out.WriteLine("Has IE: " + cait.HasIE);
+        Console.Out.WriteLine("Headshot: " + cait.HasHeadshotActive);
+        Console.Out.WriteLine("Target is Trapped: " + cait.TargetIsTrapped);
         Console.WriteLine(cait.CalculateNormalAttackDamage());
+
+        Console.WriteLine("=================");
+        Console.WriteLine("Spell R Damage:");
+        Console.Out.WriteLine(cait.CalculateSpellRDamage());
     }
 }

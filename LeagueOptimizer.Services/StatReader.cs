@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Services;
 
-// todo add interface
 public class StatReader(ILogger<StatReader> logger) : IStatReader
 {
     private readonly static JsonSerializerOptions JsonSerializerOptions = new()
@@ -15,7 +14,7 @@ public class StatReader(ILogger<StatReader> logger) : IStatReader
     };
 
     // LeagueOptimizer.Models/Champions/Caitlyn/Caitlyn.json
-    public ChampionData ReadStats(string path)
+    public ChampionData<TChampionAbilityData> ReadStats<TChampionAbilityData>(string path)
     {
         using var reader = File.OpenText(path);
 
@@ -24,7 +23,7 @@ public class StatReader(ILogger<StatReader> logger) : IStatReader
         if (string.IsNullOrEmpty(jsonString))
             throw new FileNotFoundException("File not found", path);
 
-        var result = JsonSerializer.Deserialize<ChampionData>(jsonString, JsonSerializerOptions);
+        var result = JsonSerializer.Deserialize<ChampionData<TChampionAbilityData>>(jsonString, JsonSerializerOptions);
 
         if (result == null)
             throw new JsonException("Failed to deserialize");
