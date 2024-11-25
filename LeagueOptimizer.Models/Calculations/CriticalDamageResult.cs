@@ -1,7 +1,8 @@
 using System.Text;
-using LeagueOptimizer.Abstractions.Champions;
+using LeagueOptimizer.Abstractions;
+using LeagueOptimizer.Models.Champions;
 
-namespace LeagueOptimizer.Abstractions;
+namespace LeagueOptimizer.Models.Calculations;
 
 public class CriticalDamageResult : DamageResult
 {
