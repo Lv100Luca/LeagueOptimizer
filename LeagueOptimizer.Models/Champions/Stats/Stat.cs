@@ -5,15 +5,18 @@ namespace LeagueOptimizer.Models.Champions.Stats;
 /// <summary>
 /// Represents a simple stat with a base value and a bonus value.
 /// </summary>
-public abstract class Stat : IStat
+public class Stat : IStat
 {
-    public virtual decimal Base { get; set; }
+    public virtual decimal Base { get; set; } = 0m;
     public decimal Bonus { get; set; }
 
     public decimal Multiplier { get; set; }
 
     // todo: verify if this is correct
-    public decimal Total()
+    public virtual decimal Total =>
+        CalculateTotal();
+
+    private decimal CalculateTotal()
     {
         var total = Base + Bonus;
 

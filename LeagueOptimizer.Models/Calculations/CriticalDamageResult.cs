@@ -30,7 +30,7 @@ public class CriticalDamageResult : DamageResult
     }
 
     public CriticalDamageResult(DamageType damageType, decimal damage, Champion champion, decimal nonCritBonusDamage = 0) : this(damageType, damage,
-        champion.CritChance, champion.CritDamage, nonCritBonusDamage)
+        champion.CritChance, champion.CritDamage.Total, nonCritBonusDamage)
     {
     }
 

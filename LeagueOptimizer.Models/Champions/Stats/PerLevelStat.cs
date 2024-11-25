@@ -7,7 +7,7 @@ namespace LeagueOptimizer.Models.Champions.Stats;
 /// <summary>
 /// Represents a stat that is based on the champion's level.
 /// </summary>
-public abstract class PerLevelStat(StatData statData) : Stat, IPerLevelStat
+public class PerLevelStat(StatData statData) : Stat, IPerLevelStat
 {
     public Level Level { get; set; } = Level.Default;
 
@@ -16,8 +16,8 @@ public abstract class PerLevelStat(StatData statData) : Stat, IPerLevelStat
     public decimal StartingValue { get; set; } = statData.Base;
     public decimal Growth { get; set; } = statData.Growth;
 
-    private const decimal SchizoPerLevelMultiplier1 = 0.7025m;
-    private const decimal SchizoPerLevelMultiplier2 = 0.0175m;
+    protected const decimal SchizoPerLevelMultiplier1 = 0.7025m;
+    protected const decimal SchizoPerLevelMultiplier2 = 0.0175m;
 
     private decimal CalculatePerLevelStat(decimal baseValue, decimal growth)
     {

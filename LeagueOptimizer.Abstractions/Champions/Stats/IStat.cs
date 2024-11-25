@@ -7,5 +7,5 @@ public interface IStat
 
     public decimal Multiplier { get; }
 
-    public decimal Total();
+    public decimal Total { get; }
 }

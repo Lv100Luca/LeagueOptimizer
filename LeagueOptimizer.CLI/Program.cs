@@ -17,16 +17,25 @@ public static class Program
         var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
             new Logger<Caitlyn>(new LoggerFactory()))
         {
-            BonusAttackDamage = 320,
+            AttackDamage =
+            {
+                Bonus = 320
+            },
+
+            CritDamage =
+            {
+                Bonus = 0.4m
+            },
+
+            AttackSpeed =
+            {
+                Bonus = 0.35m
+            },
+
             CritChance = 1m,
-            BonusCritDamage = 0.4m,
-
-            BonusAttackSpeed = 0.35m,
-
             TargetIsTrapped = true,
             TargetIsChampion = true,
             HasHeadshotActive = true,
-
         };
 
         Console.WriteLine(cait);
