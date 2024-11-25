@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using LeagueOptimizer.Abstractions;
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Models;
 using LeagueOptimizer.Models.Champions.Caitlyn;
@@ -13,8 +14,27 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        TestResistCalculation1();
-        TestResistCalculation2();
+        CalculateDamageReductionArmor();
+        // TestResistCalculation1();
+        // TestResistCalculation2();
+    }
+
+    private static void CalculateDamageReductionArmor()
+    {
+        var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
+
+        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+            new Logger<Caitlyn>(new LoggerFactory()));
+
+        cait.Lethality = 10;
+
+        var target = new TargetDummy
+        {
+            BaseArmor = 100,
+            BonusArmor = 0,
+        };
+
+        Console.WriteLine(cait.CalculateResistanceDamageReduction(target, DamageType.Physical));
     }
 
     private static void TestResistCalculation1()
@@ -38,7 +58,7 @@ public static class Program
             ArmorReduction = 0.3m,
         };
 
-        cait.CalculateTargetResistance(target);
+        cait.CalculateTargetResistance(target, DamageType.Physical);
     }
 
     private static void TestResistCalculation2()
@@ -57,7 +77,7 @@ public static class Program
             FlatArmorReduction = 30,
         };
 
-        cait.CalculateTargetResistance(target);
+        cait.CalculateTargetResistance(target, DamageType.Physical);
     }
 
     private static void TestAbilityDamageCalculation()

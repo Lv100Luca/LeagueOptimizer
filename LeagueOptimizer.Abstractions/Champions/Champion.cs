@@ -227,12 +227,35 @@ public abstract class Champion : ITarget
                $"  Crit Damage:     {CritDamage:P}\n";
     }
 
-    // public decimal TestResistCalculation(ITarget target)
-    // {
+    public decimal CalculateResistanceDamageReduction(ITarget target, DamageType damageType)
+    {
+        return 100m / (100m + CalculateTargetResistance(target, damageType));
+    }
 
-    // }
+    public decimal CalculateTargetResistance(ITarget target, DamageType damageType)
+    {
+        return damageType switch
+        {
+            DamageType.Physical => CalculateTargetResistance(target.FlatArmorReduction, target.ArmorReduction,
+                target.BaseArmor, target.BonusArmor,
+                target.TotalArmor, BonusArmorPen, ArmorPen, Lethality),
+            DamageType.Magic => CalculateTargetResistance(target.FlatMagicResistReduction, target.MagicResistReduction,
+                target.BaseMagicResist, target.BonusMagicResist,
+                target.TotalMagicResist, BonusMagicPen, MagicPen, 0),
+            _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
+        };
+    }
 
-    public decimal CalculateTargetResistance(ITarget target)
+    public static decimal CalculateTargetResistance(
+        decimal flatReduction,
+        decimal percentReduction,
+        decimal baseResistance,
+        decimal bonusResistance,
+        decimal totalResistance,
+        decimal bonusPen,
+        decimal percentPen,
+        decimal lethality
+    )
     {
         // todo create generic method for both armor and mr
         /* todo keep in mind that:
@@ -242,52 +265,58 @@ public abstract class Champion : ITarget
 
         // Armor Reduction
         // Flat armor reduction
-        if (target.FlatArmorReduction > 0)
+        if (flatReduction > 0)
         {
-            var newTotal = target.TotalArmor - target.FlatArmorReduction;
-            var flatReductionscalingFactor = newTotal / target.TotalArmor;
+            var newTotal = totalResistance - flatReduction;
+            var flatReductionscalingFactor = newTotal / totalResistance;
 
-            target.BaseArmor *= flatReductionscalingFactor;
-            target.BonusArmor *= flatReductionscalingFactor;
+            baseResistance *= flatReductionscalingFactor;
+            bonusResistance *= flatReductionscalingFactor;
 
+            totalResistance = baseResistance + bonusResistance;
 
-            if (target.TotalArmor < 0)
+            if (totalResistance < 0)
             {
-                Console.Out.WriteLine($"Armor({target.TotalArmor:F1}) is lower than 0, exiting");
-                return target.TotalArmor;
+                Console.Out.WriteLine($"Armor({totalResistance:F1}) is lower than 0, exiting");
+
+                return totalResistance;
             }
-            Console.Out.WriteLine($"Armor after flat reduction: ({target.BaseArmor:F1}/{target.BonusArmor:F1}) {target.TotalArmor:F1}");
+
+            Console.Out.WriteLine(
+                $"Armor after flat reduction: ({baseResistance:F1}/{bonusResistance:F1}) {totalResistance:F1}");
         }
 
 
         // percent reduction
-        if (target.ArmorReduction > 0)
+        if (percentReduction > 0)
         {
-            var percentReductionScalingFactor = 1 - target.ArmorReduction;
-            target.BaseArmor *= percentReductionScalingFactor;
-            target.BonusArmor *= percentReductionScalingFactor;
+            var percentReductionScalingFactor = 1 - percentReduction;
+            baseResistance *= percentReductionScalingFactor;
+            bonusResistance *= percentReductionScalingFactor;
+
+            totalResistance = baseResistance + bonusResistance;
 
             Console.Out.WriteLine(
-                $"Armor after percent reduction: ({target.BaseArmor:F1}/{target.BonusArmor:F1}) {target.TotalArmor:F1}");
+                $"Armor after percent reduction: ({baseResistance:F1}/{bonusResistance:F1}) {totalResistance:F1}");
         }
 
-        var totalArmor = target.TotalArmor;
+        var totalArmor = totalResistance;
 
         // Percent Bonus Armor Pen
-        if (BonusArmorPen > 0)
+        if (bonusPen > 0)
         {
-            var percentBonusArmorPenScalingFactor = 1 - BonusArmorPen;
+            var percentBonusArmorPenScalingFactor = 1 - bonusPen;
 
-            totalArmor = target.BaseArmor + (target.BonusArmor * percentBonusArmorPenScalingFactor);
+            totalArmor = baseResistance + (bonusResistance * percentBonusArmorPenScalingFactor);
 
             Console.Out.WriteLine($"Armor after percent bonus pen: {totalArmor:F1}");
         }
 
         //Percent Armor Pen
         // todo how does total and bonus armor pen work together?
-        if (ArmorPen > 0)
+        if (percentPen > 0)
         {
-            var percentArmorPenScalingFactor = 1 - ArmorPen;
+            var percentArmorPenScalingFactor = 1 - percentPen;
 
             totalArmor *= percentArmorPenScalingFactor;
 
@@ -295,9 +324,9 @@ public abstract class Champion : ITarget
         }
 
         // Flat Armor Pen
-        if (Lethality > 0)
+        if (lethality > 0)
         {
-            totalArmor -= Lethality;
+            totalArmor -= lethality;
 
             Console.Out.WriteLine($"Armor after flat armor pen: {totalArmor:F1}");
         }
