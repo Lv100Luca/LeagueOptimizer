@@ -17,7 +17,6 @@ public static class Program
         var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
             new Logger<Caitlyn>(new LoggerFactory()))
         {
-            Level = Level.From(18),
             BonusAttackDamage = 320,
             CritChance = 1m,
             BonusCritDamage = 0.4m,
@@ -29,6 +28,10 @@ public static class Program
             HasHeadshotActive = true,
 
         };
+
+        Console.WriteLine(cait);
+
+        cait.Level = Level.From(18);
 
         Console.WriteLine(cait);
 
