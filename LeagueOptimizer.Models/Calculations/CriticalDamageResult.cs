@@ -1,7 +1,8 @@
 using System.Text;
-using LeagueOptimizer.Abstractions.Champions;
+using LeagueOptimizer.Abstractions;
+using LeagueOptimizer.Models.Champions;
 
-namespace LeagueOptimizer.Abstractions;
+namespace LeagueOptimizer.Models.Calculations;
 
 public class CriticalDamageResult : DamageResult
 {
@@ -29,7 +30,7 @@ public class CriticalDamageResult : DamageResult
     }
 
     public CriticalDamageResult(DamageType damageType, decimal damage, Champion champion, decimal nonCritBonusDamage = 0) : this(damageType, damage,
-        champion.CritChance, champion.CritDamage, nonCritBonusDamage)
+        champion.CritChance, champion.CritDamage.Total, nonCritBonusDamage)
     {
     }
 
