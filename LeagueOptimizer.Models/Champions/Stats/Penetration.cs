@@ -4,7 +4,7 @@ namespace LeagueOptimizer.Models.Champions.Stats;
 
 public class Penetration : IPenetration
 {
-    public decimal Flat { get; set; }
-    public decimal Percent { get; set; }
-    public decimal PercentBonus { get; set; }
+    public decimal FlatPen { get; set; }
+    public decimal PercentPen { get; set; }
+    public decimal PercentBonusPen { get; set; }
 }

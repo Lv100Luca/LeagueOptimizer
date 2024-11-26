@@ -5,6 +5,7 @@ using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Models;
 using LeagueOptimizer.Models.Champions.Caitlyn;
 using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
+using LeagueOptimizer.Models.Champions.Stats;
 using LeagueOptimizer.Services;
 using Microsoft.Extensions.Logging;
 
@@ -26,7 +27,7 @@ public static class Program
         var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
             new Logger<Caitlyn>(new LoggerFactory()));
 
-        cait.Lethality = 10;
+        cait.ArmorPen.FlatPen = 10;
 
         var target = new TargetDummy
         {
@@ -45,8 +46,11 @@ public static class Program
             new Logger<Caitlyn>(new LoggerFactory()))
         {
             Level = Level.From(18),
-            Lethality = 10,
-            BonusArmorPen = 0.45m,
+            ArmorPen = new Penetration
+            {
+                FlatPen = 10,
+                PercentBonusPen = 0.45m,
+            },
         };
 
         var target = new TargetDummy

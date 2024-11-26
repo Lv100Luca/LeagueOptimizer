@@ -7,16 +7,22 @@ namespace LeagueOptimizer.Models.Champions.Stats;
 /// <summary>
 /// Represents a stat that is based on the champion's level.
 /// </summary>
-public class PerLevelStat(StatData statData) : Stat, IPerLevelStat
+public class PerLevelStat(StatData statData) : IPerLevelStat
 {
     public PerLevelStat(StatData statData, Level level) : this(statData)
     {
         Level = level;
     }
 
-    public Level Level { get; set; } = Level.Default;
+    public decimal Base => CalculatePerLevelStat(StartingValue, Growth);
+    public decimal Bonus { get; set; }
 
-    override public decimal Base => CalculatePerLevelStat(StartingValue, Growth);
+    public decimal Multiplier { get; set; }
+
+    public decimal Total => CalculatePerLevelStat(Base, Growth);
+
+    private Level Level { get; set; } = Level.Default;
+
 
     public decimal StartingValue { get; set; } = statData.Base;
     public decimal Growth { get; set; } = statData.Growth;

@@ -58,7 +58,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var eApScaling = AbilitiesData.SpellE.ApScaling;
 
-        return new DamageResult(DamageType.Magic, eBaseDamage * eApScaling);
+        return new DamageResult(DamageType.Magic, eBaseDamage + eApScaling * Ap.Total);
     }
 
     public DamageResult CalculateSpellRDamage()
@@ -73,9 +73,9 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         Console.Out.WriteLine("rCritChanceDamageMultiplier: " + rCritChanceDamageMultiplier);
 
-        var rDamage = rBaseDamage * rBonusAdScaling * rCritChanceDamageMultiplier;
+        var rDamage = rBaseDamage + rBonusAdScaling * AttackDamage.Bonus;
 
-        return new DamageResult(DamageType.Physical, rDamage);
+        return new DamageResult(DamageType.Physical, rDamage * rCritChanceDamageMultiplier);
     }
 
     public DamageResult CalculateTestAbilityDamage(ITarget target)
@@ -84,7 +84,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var percentMaxHpDamage = 0.5m;
 
-        var abilityBaseDamage = BonusAttackDamage * bonusAdScaling + 200;
+        var abilityBaseDamage = AttackDamage.Bonus * bonusAdScaling + 200;
 
         var maxHpDamage = target.MaxHp * percentMaxHpDamage;
 

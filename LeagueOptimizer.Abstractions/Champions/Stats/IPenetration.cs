@@ -5,12 +5,12 @@ public interface IPenetration
     /// <summary>
     /// The flat penetration of the attack
     /// </summary>
-    public decimal Flat{ get; }
+    public decimal FlatPen{ get; }
 
     /// <summary>
     /// The percent penetration of the attack
     /// </summary>
-    public decimal Percent { get; }
+    public decimal PercentPen { get; }
 
     /// <summary>
     /// The percent bonus penetration of the attack
@@ -18,5 +18,5 @@ public interface IPenetration
     /// Only applies to bonus resistances
     /// </remarks>
     /// </summary>
-    public decimal PercentBonus { get; }
+    public decimal PercentBonusPen { get; }
 }

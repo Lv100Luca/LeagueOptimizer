@@ -1,13 +1,14 @@
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
+using LeagueOptimizer.Abstractions.Champions.Stats;
 
 namespace LeagueOptimizer.Models.Champions.Stats;
 
-public class AttackSpeed(AttackSpeedData statData) : PerLevelStat(statData)
+public class AttackSpeed(AttackSpeedData statData) : PerLevelStat(statData), IAttackSpeed
 {
     override public decimal Base { get; set; }
 
-    private decimal Ratio { get; set; }
+    public decimal Ratio { get; init; }
 
     public AttackSpeed(AttackSpeedData statData, Level level) : this(statData)
     {

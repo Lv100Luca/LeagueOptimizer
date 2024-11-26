@@ -1,6 +1,6 @@
 namespace LeagueOptimizer.Abstractions.Champions.Stats;
 
-public interface IResource : IStat
+public interface IResource : IPerLevelStat
 {
     public ResourceType ResourceType { get; }
 
