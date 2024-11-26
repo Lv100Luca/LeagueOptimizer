@@ -1,4 +1,6 @@
-namespace LeagueOptimizer.Abstractions;
+using LeagueOptimizer.Abstractions;
+
+namespace LeagueOptimizer.Models.Calculations;
 
 public class DamageResult(DamageType damageType, decimal damage)
 {
