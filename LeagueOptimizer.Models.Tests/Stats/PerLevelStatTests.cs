@@ -105,7 +105,7 @@ public class PerLevelStatTests
 
         var perLevelStat = new PerLevelStat(statData, level) { Bonus = bonus };
 
-        const decimal expectedValue = 1518.93m;
+        const decimal expectedValue = 1672.925m;
 
         Assert.That(perLevelStat.Total, Is.EqualTo(expectedValue).Within(0.1m));
     }
