@@ -89,6 +89,35 @@ public class PerLevelStatTests
     }
 
     [Test]
+    public void TestAttackSpeedCalculationTwistedFate()
+    {
+        const decimal baseValue = 0.625m;
+        const decimal growth = 0.025m;
+        const decimal ratio = 0.651m;
+        const decimal bonusAttackSpeed = 0.78m;
+
+        var level = Level.From(10);
+
+        var statData = new AttackSpeedData
+        {
+            Base = baseValue,
+            Growth = growth,
+            Ratio = ratio,
+        };
+
+        var attackSpeed = new AttackSpeed(statData, level) { Bonus = bonusAttackSpeed };
+
+        const decimal expectedTotal = 1.2587485m;
+        const decimal expectedBonus = 0.9735m;
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(attackSpeed.Total, Is.EqualTo(expectedTotal).Within(0.001m));
+            Assert.That(attackSpeed.Bonus, Is.EqualTo(expectedBonus).Within(0.001m));
+        });
+    }
+
+    [Test]
     public void TestStatCalculationWithBonus()
     {
         const decimal baseValue = 580;

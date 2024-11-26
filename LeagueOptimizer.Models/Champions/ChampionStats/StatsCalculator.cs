@@ -17,8 +17,15 @@ public static class StatsCalculator
         var g = growth;
         var n = level.Value;
 
-        return startingValue + (bonus + g * (n - 1) *
-            (SchizoPerLevelMultiplier1 + SchizoPerLevelMultiplier2 * (n - 1))) * ratio;
+        return startingValue + ratio * bonus;
+    }
+
+    public static decimal CalculatePerLevelBonusAttackSpeed(Level level, decimal growth)
+    {
+        var g = growth;
+        var n = level.Value;
+
+        return g * (n - 1) * (SchizoPerLevelMultiplier1 + SchizoPerLevelMultiplier2 * (n - 1));
     }
 
     public static decimal CalculatePerLevelBaseStat(Level level, decimal baseValue, decimal growth)

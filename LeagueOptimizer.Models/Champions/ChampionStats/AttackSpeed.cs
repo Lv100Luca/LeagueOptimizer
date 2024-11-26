@@ -14,7 +14,15 @@ public class AttackSpeed(AttackSpeedData data) : IStat
     private Level _level;
 
     public decimal Base => data.Base; // todo: check this
-    public decimal Bonus { get; set; }
+    private decimal _bonus;
+
+    // AttackSpeed per level adds to the bonus value but shouldnt be factored in when setting
+    // todo: add wiki entry for this
+    public decimal Bonus
+    {
+        get => _bonus + StatsCalculator.CalculatePerLevelBonusAttackSpeed(_level, data.Growth);
+        set => _bonus = value;
+    }
 
     public decimal Total => StatsCalculator.CalculateTotalAttackSpeed(
         _level, data.Base, data.Growth, Bonus, data.Ratio);
