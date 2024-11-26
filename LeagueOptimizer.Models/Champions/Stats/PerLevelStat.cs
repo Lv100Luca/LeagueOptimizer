@@ -9,6 +9,11 @@ namespace LeagueOptimizer.Models.Champions.Stats;
 /// </summary>
 public class PerLevelStat(StatData statData) : Stat, IPerLevelStat
 {
+    public PerLevelStat(StatData statData, Level level) : this(statData)
+    {
+        Level = level;
+    }
+
     public Level Level { get; set; } = Level.Default;
 
     override public decimal Base => CalculatePerLevelStat(StartingValue, Growth);

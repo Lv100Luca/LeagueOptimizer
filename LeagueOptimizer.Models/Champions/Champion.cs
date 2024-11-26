@@ -24,7 +24,7 @@ public abstract class Champion
 
         AttackDamage = new PerLevelStat(data.AttackDamage);
 
-        AttackSpeed = new AttackSpeed(data.AttackSpeed, data.AttackSpeed.Ratio);
+        AttackSpeed = new AttackSpeed(data.AttackSpeed);
 
         Armor = new Resistance(data.Armor);
 

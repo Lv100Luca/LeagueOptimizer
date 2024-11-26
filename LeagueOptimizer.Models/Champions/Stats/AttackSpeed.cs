@@ -1,16 +1,18 @@
+using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 
 namespace LeagueOptimizer.Models.Champions.Stats;
 
-public class AttackSpeed(StatData statData) : PerLevelStat(statData)
+public class AttackSpeed(AttackSpeedData statData) : PerLevelStat(statData)
 {
     override public decimal Base { get; set; }
 
     private decimal Ratio { get; set; }
 
-    public AttackSpeed(StatData statData, decimal ratio) : this(statData)
+    public AttackSpeed(AttackSpeedData statData, Level level) : this(statData)
     {
-        Ratio = ratio;
+        Ratio = statData.Ratio;
+        Level = level;
     }
 
     private decimal CalculateAttackSpeed()
