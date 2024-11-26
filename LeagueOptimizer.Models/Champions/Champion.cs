@@ -2,8 +2,7 @@ using LeagueOptimizer.Abstractions;
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Abstractions.Champions.Stats;
-using LeagueOptimizer.Models.Champions.Stats;
-using LeagueOptimizer.Models.Champions.Stats.Resources;
+using LeagueOptimizer.Models.Champions.ChampionStats;
 using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Models.Champions;
@@ -20,11 +19,11 @@ public abstract class Champion : IChampion
 
         BaseStatsData = data;
 
-        Health = new Health(data.Health, data.HealthRegen);
+        Health = new Resource(data.Health, data.HealthRegen);
 
-        Resource = new Resource(data.Resource, data.ResourceRegen, ResourceType.Mana);
+        Resource = new Resource(data.Resource, data.ResourceRegen);
 
-        AttackDamage = new PerLevelStat(data.AttackDamage);
+        AttackDamage = new Stat(data.AttackDamage);
 
         AttackSpeed = new AttackSpeed(data.AttackSpeed);
 
@@ -32,9 +31,9 @@ public abstract class Champion : IChampion
 
         MagicResist = new Resistance(data.MagicResist);
 
-        AttackRange = new Stat { Base = data.AttackRange };
+        AttackRange = new BasicStat(data.AttackRange);
 
-        MovementSpeed = new Stat { Base = data.MovementSpeed };
+        MovementSpeed = new BasicStat(data.MovementSpeed);
     }
 
     public abstract string Name { get; set; }
@@ -62,63 +61,41 @@ public abstract class Champion : IChampion
 
     private StatsData BaseStatsData { get; set; }
 
-    // Health
     public IResource Health { get; set; }
-
-    // Resource
     public IResource Resource { get; set; }
 
-    // AttackDamage
-    public IPerLevelStat AttackDamage { get; set; }
+    public IStat AttackDamage { get; set; }
+    public IStat AttackSpeed { get; set; }
 
-    // AttackSpeed
-    public IAttackSpeed AttackSpeed { get; set; }
-
-    // Armor
     public IResistance Armor { get; set; }
-
-    // ArmorPen
-    public IPenetration ArmorPen { get; set; } = new();
-
-    // MagicResist
     public IResistance MagicResist { get; set; }
 
-    // MagicPen
-    public IPenetration MagicPen { get; set; } = new();
+    public IBasicStat AttackRange { get; set; }
+    public IBasicStat MovementSpeed { get; set; }
 
-    // AttackRange
-    public Stat AttackRange { get; set; }
+    public IBasicStat AbilityPower { get; set; } = new BasicStat(0);
 
-    // MovementSpeed
-    public Stat MovementSpeed { get; set; }
+    public IPenetration ArmorPen { get; set; }
+    public IPenetration MagicPen { get; set; }
 
-    // AP
-    public BasicStat Ap { get; set; } = new();
+    public IBasicStat AbilityHaste { get; set; } = new BasicStat(0);
+    public IBasicStat Lifesteal { get; set; } = new BasicStat(0);
 
-    // AbilityHaste
-    public decimal AbilityHaste { get; set; } = 0m;
-
-    // Lifesteal
-    public decimal Lifesteal { get; set; } = 0m;
-
-    // CritChance
-    public decimal CritChance { get; set; } = 0m;
-
-    // CritDamage
-    public Stat CritDamage { get; set; } = new() { Base = 1.75m };
+    public IBasicStat CritChance { get; set; } = new BasicStat(0);
+    public IBasicStat CritDamage { get; set; } = new BasicStat(1.75m);
 
     override public string ToString()
     {
         return $"{Name} (Level {Level.Value}): \n" +
                $"  Health:          {Health.Total} (Regen: {Health.Regen.Total})\n" +
-               $"  Resource ({Resource.ResourceType}): {Resource.Total} (Regen: {Resource.Regen.Total})\n" +
+               $"  Resource:        {Resource.Total} (Regen: {Resource.Regen.Total})\n" +
                $"  Attack Damage:   {AttackDamage.Total}\n" +
                $"  Attack Speed:    {AttackSpeed.Total:F2}\n" +
                $"  Armor:           {Armor.Total}\n" +
                $"  Magic Resist:    {MagicResist.Total}\n" +
                $"  Attack Range:    {AttackRange}\n" +
                $"  Movement Speed:  {MovementSpeed}\n" +
-               $"  Ability Power:   {Ap.Total}\n" +
+               $"  Ability Power:   {AbilityPower.Total}\n" +
                $"  Ability Haste:   {AbilityHaste}\n" +
                $"  Lifesteal:       {Lifesteal:P}\n" +
                $"  Crit Chance:     {CritChance:P}\n" +

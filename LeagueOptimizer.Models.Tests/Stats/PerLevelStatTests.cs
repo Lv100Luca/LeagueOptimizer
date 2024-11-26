@@ -1,6 +1,6 @@
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
-using LeagueOptimizer.Models.Champions.Stats;
+using LeagueOptimizer.Models.Champions.ChampionStats;
 
 namespace LeagueOptimizer.Models.Tests.Stats;
 
@@ -36,7 +36,7 @@ public class PerLevelStatTests
             Growth = growth
         };
 
-        var perLevelStat = new PerLevelStat(statData) { Level = Level.From(level) };
+        var perLevelStat = new Stat(statData, Level.From(level));
 
         Assert.That(perLevelStat.Total, Is.EqualTo(expectedValue).Within(0.1m));
     }
@@ -57,7 +57,7 @@ public class PerLevelStatTests
 
         const decimal expectedValue = 771.4m;
 
-        var perLevelStat = new PerLevelStat(statData, level);
+        var perLevelStat = new Stat(statData, level);
 
         Assert.That(perLevelStat.Total, Is.EqualTo(expectedValue).Within(0.1m));
     }
@@ -103,7 +103,7 @@ public class PerLevelStatTests
             Growth = growth
         };
 
-        var perLevelStat = new PerLevelStat(statData, level) { Bonus = bonus };
+        var perLevelStat = new Stat(statData, level) { Bonus = bonus };
 
         const decimal expectedValue = 1672.925m;
 

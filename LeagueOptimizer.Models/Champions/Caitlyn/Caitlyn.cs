@@ -58,7 +58,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var eApScaling = AbilitiesData.SpellE.ApScaling;
 
-        return new DamageResult(DamageType.Magic, eBaseDamage + eApScaling * Ap.Total);
+        return new DamageResult(DamageType.Magic, eBaseDamage + eApScaling * AbilityPower.Total);
     }
 
     public DamageResult CalculateSpellRDamage()
@@ -69,7 +69,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var rBonusAdScaling = AbilitiesData.SpellR.BonusAdScaling;
 
-        var rCritChanceDamageMultiplier = 1 + AbilitiesData.SpellR.CritScaling * CritChance;
+        var rCritChanceDamageMultiplier = 1 + AbilitiesData.SpellR.CritScaling * CritChance.Total;
 
         Console.Out.WriteLine("rCritChanceDamageMultiplier: " + rCritChanceDamageMultiplier);
 
@@ -110,7 +110,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         // todo figure out if this is how this works
         // crit scaling plus additional scaling when HasIE is true
         var critHeadshotScaling =
-            (AbilitiesData.Passive.CritScaling + (HasIE ? AbilitiesData.Passive.IeCritBonusScaling : 0)) * CritChance;
+            (AbilitiesData.Passive.CritScaling + (HasIE ? AbilitiesData.Passive.IeCritBonusScaling : 0)) * CritChance.Total;
 
         var headshotScaling = baseHeadshotScaling + critHeadshotScaling;
 

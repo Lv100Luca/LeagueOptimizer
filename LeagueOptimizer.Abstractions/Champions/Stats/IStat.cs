@@ -5,7 +5,7 @@ public interface IStat
     public decimal Base { get; }
     public decimal Bonus { get; set; }
 
-    public decimal Multiplier { get; set; }
-
     public decimal Total { get; }
+
+    public void UpdateLevel(Level level);
 }

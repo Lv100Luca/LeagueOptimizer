@@ -5,7 +5,7 @@ using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Models;
 using LeagueOptimizer.Models.Champions.Caitlyn;
 using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
-using LeagueOptimizer.Models.Champions.Stats;
+using LeagueOptimizer.Models.Champions.ChampionStats;
 using LeagueOptimizer.Services;
 using Microsoft.Extensions.Logging;
 
@@ -106,7 +106,7 @@ public static class Program
                 Bonus = 0.35m
             },
 
-            CritChance = 1m,
+            CritChance = new BasicStat(1m),
             TargetIsTrapped = true,
             TargetIsChampion = true,
             HasHeadshotActive = true,
