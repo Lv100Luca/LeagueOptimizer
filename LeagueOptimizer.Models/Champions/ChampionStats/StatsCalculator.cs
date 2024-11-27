@@ -8,15 +8,10 @@ public static class StatsCalculator
     private const decimal SchizoPerLevelMultiplier2 = 0.0175m;
 
     public static decimal CalculateTotalAttackSpeed(
-        Level level,
         decimal startingValue,
-        decimal growth,
         decimal bonus,
         decimal ratio)
     {
-        var g = growth;
-        var n = level.Value;
-
         return startingValue + ratio * bonus;
     }
 

@@ -25,7 +25,7 @@ public class AttackSpeed(AttackSpeedData data) : IStat
     }
 
     public decimal Total => StatsCalculator.CalculateTotalAttackSpeed(
-        _level, data.Base, data.Growth, Bonus, data.Ratio);
+        data.Base, Bonus, data.Ratio);
 
     public void UpdateLevel(Level level)
     {
