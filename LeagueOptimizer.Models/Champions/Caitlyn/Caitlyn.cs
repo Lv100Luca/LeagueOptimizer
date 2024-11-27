@@ -58,7 +58,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var eApScaling = AbilitiesData.SpellE.ApScaling;
 
-        return new DamageResult(DamageType.Magic, eBaseDamage * eApScaling);
+        return new DamageResult(DamageType.Magic, eBaseDamage + eApScaling * AbilityPower.Total);
     }
 
     public DamageResult CalculateSpellRDamage()
@@ -69,13 +69,28 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var rBonusAdScaling = AbilitiesData.SpellR.BonusAdScaling;
 
-        var rCritChanceDamageMultiplier = 1 + AbilitiesData.SpellR.CritScaling * CritChance;
+        var rCritChanceDamageMultiplier = 1 + AbilitiesData.SpellR.CritScaling * CritChance.Total;
 
         Console.Out.WriteLine("rCritChanceDamageMultiplier: " + rCritChanceDamageMultiplier);
 
-        var rDamage = rBaseDamage * rBonusAdScaling * rCritChanceDamageMultiplier;
+        var rDamage = rBaseDamage + rBonusAdScaling * AttackDamage.Bonus;
 
-        return new DamageResult(DamageType.Physical, rDamage);
+        return new DamageResult(DamageType.Physical, rDamage * rCritChanceDamageMultiplier);
+    }
+
+    public DamageResult CalculateTestAbilityDamage(ITarget target)
+    {
+        var bonusAdScaling = 1m;
+
+        var percentMaxHpDamage = 0.5m;
+
+        var abilityBaseDamage = AttackDamage.Bonus * bonusAdScaling + 200;
+
+        var maxHpDamage = target.MaxHp * percentMaxHpDamage;
+
+        var totalDamage = abilityBaseDamage + maxHpDamage;
+
+        return new DamageResult(DamageType.Physical, totalDamage);
     }
 
     [Obsolete("placeholder until items are implemented")]
@@ -95,7 +110,7 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         // todo figure out if this is how this works
         // crit scaling plus additional scaling when HasIE is true
         var critHeadshotScaling =
-            (AbilitiesData.Passive.CritScaling + (HasIE ? AbilitiesData.Passive.IeCritBonusScaling : 0)) * CritChance;
+            (AbilitiesData.Passive.CritScaling + (HasIE ? AbilitiesData.Passive.IeCritBonusScaling : 0)) * CritChance.Total;
 
         var headshotScaling = baseHeadshotScaling + critHeadshotScaling;
 
