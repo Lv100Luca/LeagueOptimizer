@@ -75,8 +75,8 @@ public abstract class Champion : IChampion
 
     public IBasicStat AbilityPower { get; set; } = new BasicStat(0);
 
-    public IPenetration ArmorPen { get; set; }
-    public IPenetration MagicPen { get; set; }
+    public IPenetration ArmorPen { get; set; } = new Penetration();
+    public IPenetration MagicPen { get; set; } = new Penetration();
 
     public IBasicStat AbilityHaste { get; set; } = new BasicStat(0);
     public IBasicStat Lifesteal { get; set; } = new BasicStat(0);
