@@ -1,32 +1,45 @@
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
+using LeagueOptimizer.Abstractions.Champions.Stats;
 
 namespace LeagueOptimizer.Models.Champions.Stats;
 
-public class AttackSpeed(AttackSpeedData statData) : PerLevelStat(statData)
+public class AttackSpeed : IAttackSpeed
 {
-    override public decimal Base { get; set; }
+    public decimal Base { get; set; }
 
+    private decimal Growth { get; set; }
     private decimal Ratio { get; set; }
+    private decimal _perLevelBonus = 0m;
 
-    public AttackSpeed(AttackSpeedData statData, Level level) : this(statData)
+    public AttackSpeed(Level level, AttackSpeedData statData)
     {
+        Base = statData.Base;
+        Growth = statData.Growth;
+        Bonus = 0m;
         Ratio = statData.Ratio;
-        Level = level;
+        _perLevelBonus = Formulas.CalculatePerLevelBonusAttackSpeed(level, statData.Growth);
     }
 
-    private decimal CalculateAttackSpeed()
+    public AttackSpeed(AttackSpeedData statData) : this(Level.Default, statData)
     {
-        // formula and value can be found here:
-        // https://leagueoflegends.fandom.com/wiki/Champion_statistic under #Increasing Statistics
-
-        var g = Growth;
-        var n = Level.Value;
-
-        return StartingValue + (Bonus + g * (n - 1) *
-            (SchizoPerLevelMultiplier1 + SchizoPerLevelMultiplier2 * (n - 1))) * Ratio;
     }
 
-    override public decimal Total =>
-        CalculateAttackSpeed();
+    // AttackSpeed per level adds to the bonus value but shouldnt be factored in when setting
+    // todo: add wiki entry for this
+    private decimal _bonus;
+
+    public decimal Bonus
+    {
+        get => _perLevelBonus + _bonus;
+        set => _bonus = value;
+    }
+
+    public decimal Total =>
+        Formulas.CalculateTotalAttackSpeed(Base, Bonus, Ratio);
+
+    public void Update(Level level)
+    {
+        _perLevelBonus = Formulas.CalculatePerLevelBonusAttackSpeed(level, Growth);
+    }
 }
