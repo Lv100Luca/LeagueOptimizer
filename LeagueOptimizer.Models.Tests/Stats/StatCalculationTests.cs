@@ -4,7 +4,7 @@ using LeagueOptimizer.Models.Champions.Stats;
 
 namespace LeagueOptimizer.Models.Tests.Stats;
 
-public class PerLevelStatTests
+public class StatCalculationTests
 {
     // this test uses example stats from caitlyn
     [TestCase(1, 580)]
