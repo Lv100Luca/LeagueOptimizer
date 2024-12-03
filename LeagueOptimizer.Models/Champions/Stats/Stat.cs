@@ -1,3 +1,5 @@
+using LeagueOptimizer.Abstractions.Champions;
+using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Abstractions.Champions.Stats;
 
 namespace LeagueOptimizer.Models.Champions.Stats;
@@ -5,23 +7,22 @@ namespace LeagueOptimizer.Models.Champions.Stats;
 /// <summary>
 /// Represents a simple stat with a base value and a bonus value.
 /// </summary>
-public class Stat : IStat
+public class Stat(Level level, StatData statData) : IStat
 {
-    public virtual decimal Base { get; set; } = 0m;
-    public decimal Bonus { get; set; }
-
-    public decimal Multiplier { get; set; }
-
-    // todo: verify if this is correct
-    public virtual decimal Total =>
-        CalculateTotal();
-
-    private decimal CalculateTotal()
+    public Stat(StatData statData) : this(Level.Default, statData)
     {
-        var total = Base + Bonus;
+    }
 
-        var multiplierBonus = total * Multiplier;
+    public decimal Base { get; private set; } = Formulas.CalculatePerLevelBaseStat(level, statData.Base, statData.Growth);
 
-        return total + multiplierBonus;
+    private decimal Growth { get; set; } = statData.Growth;
+
+    public decimal Bonus { get; set; } = 0m;
+
+    public decimal Total => Base + Bonus;
+
+    public void Update(Level level)
+    {
+        Base = Formulas.CalculatePerLevelBaseStat(level, Base, Growth);
     }
 }

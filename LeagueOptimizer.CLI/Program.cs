@@ -32,7 +32,10 @@ public static class Program
                 Bonus = 0.35m
             },
 
-            CritChance = 1m,
+            CritChance =
+            {
+                Bonus = 1m
+            },
             TargetIsTrapped = true,
             TargetIsChampion = true,
             HasHeadshotActive = true,
@@ -44,8 +47,8 @@ public static class Program
 
         Console.WriteLine(cait);
 
-        // Console.WriteLine("=================");
-        // Console.Out.WriteLine(cait.AbilitiesToString());
+        Console.WriteLine("=================");
+        Console.Out.WriteLine(cait.AbilitiesToString());
 
         Console.WriteLine("=================");
         Console.WriteLine("Normal Attack Damage:");

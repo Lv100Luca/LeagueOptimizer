@@ -4,7 +4,7 @@ using LeagueOptimizer.Models.Champions.Stats;
 
 namespace LeagueOptimizer.Models.Tests.Stats;
 
-public class PerLevelStatTests
+public class StatCalculationTests
 {
     // this test uses example stats from caitlyn
     [TestCase(1, 580)]
@@ -36,7 +36,7 @@ public class PerLevelStatTests
             Growth = growth
         };
 
-        var perLevelStat = new PerLevelStat(statData) { Level = Level.From(level) };
+        var perLevelStat = new Stat(Level.From(level), statData);
 
         Assert.That(perLevelStat.Total, Is.EqualTo(expectedValue).Within(0.1m));
     }
@@ -57,7 +57,7 @@ public class PerLevelStatTests
 
         const decimal expectedValue = 771.4m;
 
-        var perLevelStat = new PerLevelStat(statData, level);
+        var perLevelStat = new Stat(level, statData);
 
         Assert.That(perLevelStat.Total, Is.EqualTo(expectedValue).Within(0.1m));
     }
@@ -81,7 +81,7 @@ public class PerLevelStatTests
             Ratio = ratio,
         };
 
-        var attackSpeed = new AttackSpeed(statData, level) { Bonus = bonusAttackSpeed };
+        var attackSpeed = new AttackSpeed(level, statData) { Bonus = bonusAttackSpeed };
 
         const decimal expectedValue = 0.82065m;
 
@@ -103,7 +103,7 @@ public class PerLevelStatTests
             Growth = growth
         };
 
-        var perLevelStat = new PerLevelStat(statData, level) { Bonus = bonus };
+        var perLevelStat = new Stat(level, statData) { Bonus = bonus };
 
         const decimal expectedValue = 1672.925m;
 
