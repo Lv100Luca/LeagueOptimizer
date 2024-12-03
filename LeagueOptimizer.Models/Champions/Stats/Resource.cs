@@ -4,22 +4,15 @@ using LeagueOptimizer.Abstractions.Champions.Stats;
 
 namespace LeagueOptimizer.Models.Champions.Stats;
 
-public class Resource : IResource
+public class Resource(Level level, StatData resourceData, StatData regenData) : IResource
 {
-    public decimal Base { get; private set; }
+    public decimal Base { get; private set; } =
+        Formulas.CalculatePerLevelBaseStat(level, resourceData.Base, resourceData.Growth);
 
-    private decimal Growth { get; set; }
+    private decimal Growth { get; set; } = resourceData.Growth;
 
-    public decimal Bonus { get; set; }
+    public decimal Bonus { get; set; } = 0m;
     public decimal Total => Base + Bonus;
-
-    public Resource(Level level, StatData resourceData, StatData regenData)
-    {
-        Base = Formulas.CalculatePerLevelBaseStat(level, resourceData.Base, resourceData.Growth);
-        Growth = resourceData.Growth;
-        Bonus = 0m;
-        Regen = new Stat(level, regenData);
-    }
 
     public Resource(StatData resourceData, StatData regenData) : this(Level.Default, resourceData, regenData)
     {
@@ -34,5 +27,5 @@ public class Resource : IResource
     public decimal CurrentResource => CurrentResourcePercentage * Total;
     public decimal MissingResource => Total - CurrentResource;
 
-    public IStat Regen { get; set; }
+    public IStat Regen { get; set; } = new Stat(level, regenData);
 }

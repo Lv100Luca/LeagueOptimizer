@@ -4,24 +4,16 @@ using LeagueOptimizer.Abstractions.Champions.Stats;
 
 namespace LeagueOptimizer.Models.Champions.Stats;
 
-public class Resistance : IResistance
+public class Resistance(Level level, StatData data) : IResistance
 {
     public decimal FlatReduction { get; set; } = 0m;
     public decimal PercentReduction { get; set; } = 0m;
 
-    public decimal Base { get; private set; } = 0m;
+    public decimal Base { get; private set; } = Formulas.CalculatePerLevelBaseStat(level, data.Base, data.Growth);
 
-    private decimal Growth { get; set; } = 0m;
+    private decimal Growth { get; set; } = data.Growth;
 
     public decimal Bonus { get; set; } = 0m;
-
-    public Resistance(Level level, StatData data)
-    {
-        Base = Formulas.CalculatePerLevelBaseStat(level, data.Base, data.Growth);
-        Growth = data.Growth;
-        Bonus = 0m;
-
-    }
 
     public Resistance(StatData data) : this(Level.Default, data)
     {
