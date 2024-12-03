@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>League.Optimizer.CLI</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LeagueOptimizer.Champions\LeagueOptimizer.Champions.csproj" />
+      <ProjectReference Include="..\LeagueOptimizer.Abstractions\LeagueOptimizer.Abstractions.csproj" />
       <ProjectReference Include="..\LeagueOptimizer.Models\LeagueOptimizer.Models.csproj" />
       <ProjectReference Include="..\LeagueOptimizer.Services\LeagueOptimizer.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+      <None Remove="Caitlyn\Caitlyn.json" />
+      <Content Include="Caitlyn\Caitlyn.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

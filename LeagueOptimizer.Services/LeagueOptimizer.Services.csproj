@@ -15,4 +15,7 @@
       <ProjectReference Include="..\LeagueOptimizer.Models\LeagueOptimizer.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="LeagueOptimizer.Models.Tests" />
+    </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
 namespace LeagueOptimizer.Abstractions.Champions.Stats;
 
-public interface IStat
+public interface IAttackSpeed : IStat
 {
     public decimal Base { get; set; }
     public decimal Bonus { get; set; }
-
-    public decimal Total => Base + Bonus;
+    public decimal PerLevelBonus { get; set; }
+    public decimal Total { get; set; }
 }

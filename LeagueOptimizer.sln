@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.Models.Tests", "LeagueOptimizer.Models.Tests\LeagueOptimizer.Models.Tests.csproj", "{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.Champions", "LeagueOptimizer.Champions\LeagueOptimizer.Champions.csproj", "{C8E89067-D2FA-400B-A861-B64D71CA48AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8E89067-D2FA-400B-A861-B64D71CA48AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8E89067-D2FA-400B-A861-B64D71CA48AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8E89067-D2FA-400B-A861-B64D71CA48AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8E89067-D2FA-400B-A861-B64D71CA48AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

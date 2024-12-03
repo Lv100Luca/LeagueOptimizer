@@ -1,4 +1,4 @@
-namespace LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
+namespace LeagueOptimizer.Champions.Caitlyn.AbilityData;
 
 public class CaitlynAbilityData
 {

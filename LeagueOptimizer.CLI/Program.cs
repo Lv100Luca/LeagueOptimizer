@@ -1,11 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using LeagueOptimizer.Abstractions;
 using LeagueOptimizer.Abstractions.Champions;
-using LeagueOptimizer.Models;
-using LeagueOptimizer.Models.Champions.Caitlyn;
-using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
-using LeagueOptimizer.Models.Champions.ChampionStats;
+using LeagueOptimizer.Champions.Caitlyn;
+using LeagueOptimizer.Champions.Caitlyn.AbilityData;
 using LeagueOptimizer.Services;
 using Microsoft.Extensions.Logging;
 
@@ -15,74 +12,75 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        CalculateDamageReductionArmor();
+        // CalculateDamageReductionArmor();
         // TestResistCalculation1();
         // TestResistCalculation2();
+        TestAbilityDamageCalculation();
     }
 
-    private static void CalculateDamageReductionArmor()
-    {
-        var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
-
-        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
-            new Logger<Caitlyn>(new LoggerFactory()));
-
-        cait.ArmorPen.FlatPen = 10;
-
-        var target = new TargetDummy
-        {
-            BaseArmor = 100,
-            BonusArmor = 0,
-        };
-
-        Console.WriteLine(cait.CalculateResistanceDamageReduction(target, DamageType.Physical));
-    }
-
-    private static void TestResistCalculation1()
-    {
-        var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
-
-        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
-            new Logger<Caitlyn>(new LoggerFactory()))
-        {
-            Level = Level.From(18),
-            ArmorPen = new Penetration
-            {
-                FlatPen = 10,
-                PercentBonusPen = 0.45m,
-            },
-        };
-
-        var target = new TargetDummy
-        {
-            BaseArmor = 100,
-            BonusArmor = 200,
-
-            FlatArmorReduction = 30,
-            ArmorReduction = 0.3m,
-        };
-
-        cait.CalculateTargetResistance(target, DamageType.Physical);
-    }
-
-    private static void TestResistCalculation2()
-    {
-        var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
-
-        var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
-            new Logger<Caitlyn>(new LoggerFactory()))
-        {
-            Level = Level.From(18),
-        };
-
-        var target = new TargetDummy
-        {
-            BaseArmor = 18,
-            FlatArmorReduction = 30,
-        };
-
-        cait.CalculateTargetResistance(target, DamageType.Physical);
-    }
+    // private static void CalculateDamageReductionArmor()
+    // {
+    //     var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
+    //
+    //     var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+    //         new Logger<Caitlyn>(new LoggerFactory()));
+    //
+    //     cait.ArmorPen.FlatPen = 10;
+    //
+    //     var target = new TargetDummy
+    //     {
+    //         BaseArmor = 100,
+    //         BonusArmor = 0,
+    //     };
+    //
+    //     cait.CalculateResistanceDamageReduction(target, DamageType.Physical);
+    // }
+    //
+    // private static void TestResistCalculation1()
+    // {
+    //     var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
+    //
+    //     var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+    //         new Logger<Caitlyn>(new LoggerFactory()))
+    //     {
+    //         Level = Level.From(18),
+    //         ArmorPen = new Penetration
+    //         {
+    //             FlatPen = 10,
+    //             PercentBonusPen = 0.45m,
+    //         },
+    //     };
+    //
+    //     var target = new TargetDummy
+    //     {
+    //         BaseArmor = 100,
+    //         BonusArmor = 200,
+    //
+    //         FlatArmorReduction = 30,
+    //         ArmorReduction = 0.3m,
+    //     };
+    //
+    //     cait.CalculateTargetResistance(target, DamageType.Physical);
+    // }
+    //
+    // private static void TestResistCalculation2()
+    // {
+    //     var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
+    //
+    //     var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
+    //         new Logger<Caitlyn>(new LoggerFactory()))
+    //     {
+    //         Level = Level.From(18),
+    //     };
+    //
+    //     var target = new TargetDummy
+    //     {
+    //         BaseArmor = 18,
+    //         FlatArmorReduction = 30,
+    //     };
+    //
+    //     cait.CalculateTargetResistance(target, DamageType.Physical);
+    // }
 
     private static void TestAbilityDamageCalculation()
     {
@@ -91,26 +89,17 @@ public static class Program
         var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
             new Logger<Caitlyn>(new LoggerFactory()))
         {
-            AttackDamage =
-            {
-                Bonus = 320
-            },
-
-            CritDamage =
-            {
-                Bonus = 0.4m
-            },
-
-            AttackSpeed =
-            {
-                Bonus = 0.35m
-            },
-
-            CritChance = new BasicStat(1m),
             TargetIsTrapped = true,
             TargetIsChampion = true,
             HasHeadshotActive = true,
         };
+
+        cait.Level = Level.From(1);
+
+        cait.Stats.AttackDamage.Bonus = 320;
+        cait.Stats.CritDamage.Bonus = 0.4m;
+        cait.Stats.AttackSpeed.Bonus = 0.35m;
+        cait.Stats.CritChance.Bonus = 1m;
 
         Console.WriteLine(cait);
 
