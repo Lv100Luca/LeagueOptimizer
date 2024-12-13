@@ -5,6 +5,8 @@ on:
     branches-ignore:
       - 'wip/**' # Exclude branches under wip/
   pull_request:
+    branches:
+      - '**' # Match all branches
     branches-ignore:
       - 'wip/**' # Exclude branches under wip/
 
