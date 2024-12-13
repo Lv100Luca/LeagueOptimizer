@@ -26,9 +26,13 @@ public static class Program
         var reader = new StatReader(new Logger<StatReader>(new LoggerFactory()));
 
         var cait = new Caitlyn(reader.ReadStats<CaitlynAbilityData>(Caitlyn.FilePath),
-            new Logger<Caitlyn>(new LoggerFactory()));
-
-        cait.ArmorPen.FlatPen = 10;
+            new Logger<Caitlyn>(new LoggerFactory()))
+        {
+            ArmorPen =
+            {
+                FlatPen = 10
+            }
+        };
 
         var target = new TargetDummy
         {
