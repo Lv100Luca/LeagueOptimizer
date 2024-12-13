@@ -15,6 +15,8 @@ public class Stat(Level level, StatData statData) : IStat
 
     public decimal Base { get; private set; } = Formulas.CalculatePerLevelBaseStat(level, statData.Base, statData.Growth);
 
+    private decimal StartValue { get; set; } = statData.Base;
+
     private decimal Growth { get; set; } = statData.Growth;
 
     public decimal Bonus { get; set; } = 0m;
@@ -23,6 +25,6 @@ public class Stat(Level level, StatData statData) : IStat
 
     public void Update(Level level)
     {
-        Base = Formulas.CalculatePerLevelBaseStat(level, Base, Growth);
+        Base = Formulas.CalculatePerLevelBaseStat(level, StartValue, Growth);
     }
 }

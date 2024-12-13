@@ -1,0 +1,171 @@
+﻿@page "/"
+@using System.Text.Json
+@using LeagueOptimizer.Abstractions.Champions
+@using LeagueOptimizer.Abstractions.Champions.Data
+@using LeagueOptimizer.Abstractions.Services
+@using LeagueOptimizer.Models.Champions.Caitlyn
+@using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData
+@using LeagueOptimizer.Services
+@using Microsoft.Extensions.Logging.Abstractions
+
+@inject HttpClient Http
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+---
+@if (cait != null)
+
+{
+    <h3>Caitlyn
+            <select @bind="cait!.Level">
+                @foreach (var level in Enumerable.Range(1, 18))
+                {
+                    <option value="@level">@level</option>
+                }
+            </select>
+    </h3>
+    <h3>Stats</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Stat</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Health (Regen)</td>
+            <td>@($"{cait?.Health.Total:F1}") (+ @($"{cait?.Health.Regen.Total:F1}"))</td>
+        </tr>
+        <tr>
+            <td>Resource (Regen)</td>
+            <td>@($"{cait?.Resource.Total:F1}") (+ @($"{cait?.Resource.Regen.Total:F1}"))</td>
+        </tr>
+        <tr>
+            <td>Attack Damage</td>
+            <td>@($"{cait?.AttackDamage.Total:N0}")</td>
+        </tr>
+        <tr>
+            <td>Attack Speed</td>
+            <td>@($"{cait?.AttackSpeed.Total:F2}")</td>
+        </tr>
+        <tr>
+            <td>Armor</td>
+            <td>@($"{cait?.Armor.Total:N0}")</td>
+        </tr>
+        <tr>
+            <td>Magic Resist</td>
+            <td>@($"{cait?.MagicResist.Total:N0}")</td>
+        </tr>
+        <tr>
+            <td>Attack Range</td>
+            <td>@($"{cait?.AttackRange.Total:N0}")</td>
+        </tr>
+        <tr>
+            <td>Movement Speed</td>
+            <td>@($"{cait?.MovementSpeed.Total:N0}")</td>
+        </tr>
+        <tr>
+            <td>AP</td>
+            <td>@($"{cait?.Ap.Total:N0}")</td>
+        </tr>
+        <tr>
+            <td>Ability Haste</td>
+            <td>@($"{cait?.AbilityHaste:N0}")</td>
+        </tr>
+        <tr>
+            <td>Lifesteal</td>
+            <td>@($"{cait?.Lifesteal:P1}")</td>
+        </tr>
+        <tr>
+            <td>Crit Chance</td>
+            <td>@($"{cait?.CritChance.Total:P1}")</td>
+        </tr>
+        <tr>
+            <td>Crit Damage</td>
+            <td>@($"{cait?.CritDamage.Total:P1}")</td>
+        </tr>
+        <tr>
+            <td>Armor Pen (Flat / Bonus / Total)</td>
+            <td>@($"{cait?.ArmorPen.Flat:N0} / {cait?.ArmorPen.PercentBonus:P1} / {cait?.ArmorPen.Percent:P1}")</td>
+        </tr>
+        <tr>
+            <td>Magic Pen (Flat / Bonus / Total)</td>
+            <td>@($"{cait?.MagicPen.Flat:N0} / {cait?.MagicPen.PercentBonus:P1} / {cait?.MagicPen.Percent:P1}")</td>
+        </tr>
+        </tbody>
+    </table>
+}
+
+@code
+{
+    private Caitlyn? cait;
+
+    private int? selectedLevel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var data = await ReadStats<CaitlynAbilityData>(Caitlyn.FilePath);
+
+        cait = new Caitlyn(data,
+            NullLogger<Caitlyn>.Instance)
+        {
+            // AttackDamage =
+            // {
+            //     Bonus = 320
+            // },
+            //
+            // CritDamage =
+            // {
+            //     Bonus = 0.4m
+            // },
+            //
+            // AttackSpeed =
+            // {
+            //     Bonus = 0.35m
+            // },
+            //
+            // CritChance =
+            // {
+            //     Bonus = 1m
+            // },
+            // ArmorPen =
+            // {
+            //     Flat = 10,
+            //     PercentBonus = 0.5m,
+            //     Percent = 0.5m
+            // },
+            // TargetIsTrapped = true,
+            // TargetIsChampion = true,
+            // HasHeadshotActive = true,
+        };
+
+        Console.Out.WriteLine(cait);
+    }
+
+    private async Task<ChampionData<TChampionAbilityData>> ReadStats<TChampionAbilityData>(string path)
+    {
+        var jsonString = await Http.GetStringAsync(path);
+
+        if (string.IsNullOrEmpty(jsonString))
+            throw new FileNotFoundException("File not found", path);
+
+        var result = JsonSerializer.Deserialize<ChampionData<TChampionAbilityData>>(jsonString, JsonSerializerOptions);
+
+        if (result == null)
+            throw new JsonException("Failed to deserialize");
+
+        return result;
+    }
+
+    private readonly static JsonSerializerOptions JsonSerializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+    };
+}

@@ -9,6 +9,7 @@ public class Resource(Level level, StatData resourceData, StatData regenData) : 
     public decimal Base { get; private set; } =
         Formulas.CalculatePerLevelBaseStat(level, resourceData.Base, resourceData.Growth);
 
+    private decimal StartValue { get; set; } = resourceData.Base;
     private decimal Growth { get; set; } = resourceData.Growth;
 
     public decimal Bonus { get; set; } = 0m;
@@ -20,7 +21,7 @@ public class Resource(Level level, StatData resourceData, StatData regenData) : 
 
     public void Update(Level level)
     {
-        Base = Formulas.CalculatePerLevelBaseStat(level, Base, Growth);
+        Base = Formulas.CalculatePerLevelBaseStat(level, StartValue, Growth);
     }
 
     public decimal CurrentResourcePercentage { get; set; } = 1m;
