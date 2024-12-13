@@ -10,7 +10,12 @@
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link href="LeagueOptimizer.styles.css" rel="stylesheet" />
-    <script src="setBasePath.js"></script>
+    <script>
+        // Dynamically load the setBasePath.js script
+        var script = document.createElement("script");
+        script.src = "setBasePath.js"; // Always relative to the current directory
+        document.head.appendChild(script);
+    </script>
 </head>
 
 <body>
@@ -23,7 +28,7 @@
     </div>
 
     <div id="blazor-error-ui">
-        An unhandled error has occurred.
+        An unhandled error has occurred. Jeepers
         <a href="." class="reload">Reload</a>
         <span class="dismiss">🗙</span>
     </div>
