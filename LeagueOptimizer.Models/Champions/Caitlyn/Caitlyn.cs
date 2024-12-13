@@ -8,7 +8,7 @@ namespace LeagueOptimizer.Models.Champions.Caitlyn;
 
 public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> logger) : Champion(data.BaseStats, logger)
 {
-    public const string FilePath = "/Champions/Caitlyn/Caitlyn.json";
+    public const string FilePath = "/LeagueOptimizer/Champions/Caitlyn/Caitlyn.json";
 
     override public string Name { get; set; } = "Caitlyn";
 
