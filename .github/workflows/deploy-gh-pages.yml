@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main  # Adjust this to the branch you want to deploy from
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
@@ -27,16 +24,17 @@ jobs:
       - name: Build Project
         run: dotnet publish -c Release -o build_output
 
+      - name: Debug Build Output
+        run: ls -R build_output/wwwroot
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          publish_dir: ./build_output/wwwroot
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the default GitHub token
+          publish_dir: ./build_output/wwwroot  # Correct path to your build output
+          force_orphan: true  # Ensures a clean commit in the gh-pages branch
