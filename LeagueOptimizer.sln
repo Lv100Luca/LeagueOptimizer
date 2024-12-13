@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer", "LeagueOptimizer\LeagueOptimizer.csproj", "{9993DB99-184C-48A3-89A0-DEF972C05546}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.Models", "LeagueOptimizer.Models\LeagueOptimizer.Models.csproj", "{B05191E6-85AF-4EAE-9204-1FAE1D94F719}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.CLI", "LeagueOptimizer.CLI\LeagueOptimizer.CLI.csproj", "{3A22886C-65C3-4678-B958-C213DFA3AD5D}"
@@ -18,16 +16,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer.Models.Tests", "LeagueOptimizer.Models.Tests\LeagueOptimizer.Models.Tests.csproj", "{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOptimizer", "LeagueOptimizer\LeagueOptimizer.csproj", "{A1424010-6D7B-4592-BCC8-05B35BA25C5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9993DB99-184C-48A3-89A0-DEF972C05546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9993DB99-184C-48A3-89A0-DEF972C05546}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9993DB99-184C-48A3-89A0-DEF972C05546}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9993DB99-184C-48A3-89A0-DEF972C05546}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B05191E6-85AF-4EAE-9204-1FAE1D94F719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B05191E6-85AF-4EAE-9204-1FAE1D94F719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B05191E6-85AF-4EAE-9204-1FAE1D94F719}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,5 +44,9 @@ Global
 		{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{842B8C9C-5305-4F43-8EF5-F9B63F3B24EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1424010-6D7B-4592-BCC8-05B35BA25C5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1424010-6D7B-4592-BCC8-05B35BA25C5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1424010-6D7B-4592-BCC8-05B35BA25C5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1424010-6D7B-4592-BCC8-05B35BA25C5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

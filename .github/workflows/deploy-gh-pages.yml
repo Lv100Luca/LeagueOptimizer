@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x' # Adjust to your Blazor app's target version
+          dotnet-version: '9.0.x' # Adjust to your Blazor app's target version
 
       - name: Restore Dependencies
         run: dotnet restore

@@ -11,6 +11,7 @@ public class Resistance(Level level, StatData data) : IResistance
 
     public decimal Base { get; private set; } = Formulas.CalculatePerLevelBaseStat(level, data.Base, data.Growth);
 
+    private decimal StartValue { get; set; } = data.Base;
     private decimal Growth { get; set; } = data.Growth;
 
     public decimal Bonus { get; set; } = 0m;
@@ -23,6 +24,6 @@ public class Resistance(Level level, StatData data) : IResistance
 
     public void Update(Level level)
     {
-        Base = Formulas.CalculatePerLevelBaseStat(level, Base, Growth);
+        Base = Formulas.CalculatePerLevelBaseStat(level, StartValue, Growth);
     }
 }
