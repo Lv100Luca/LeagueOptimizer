@@ -3,29 +3,40 @@ name: Deploy Blazor App to GitHub Pages
 on:
   push:
     branches:
-      - main # Deploy only when changes are pushed to the main branch
+      - main  # Adjust this to the branch you want to deploy from
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x' # Replace with your Blazor app's .NET version
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x' # Adjust to your Blazor app's target version
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore Dependencies
+        run: dotnet restore
 
-    - name: Build Blazor app
-      run: dotnet publish -c Release -o build
+      - name: Build Project
+        run: dotnet publish -c Release -o build_output
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        publish_dir: ./build/wwwroot
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          publish_dir: ./build_output/wwwroot
