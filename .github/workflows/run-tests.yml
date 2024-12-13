@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - '**' # Match all branches
+  pull_request_target:
+    types:
+      - opened
+    branches:
+      - '**'
 
 jobs:
   build-and-test:
