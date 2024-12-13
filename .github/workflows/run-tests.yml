@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - '**' # Match all branches
-  pull_request:
-    branches:
-      - '**' # Match all branches
 
 jobs:
   build-and-test:
