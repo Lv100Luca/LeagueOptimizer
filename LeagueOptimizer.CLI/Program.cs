@@ -16,8 +16,8 @@ public static class Program
     public static void Main(string[] args)
     {
         CalculateDamageReductionArmor();
-        // TestResistCalculation1();
-        // TestResistCalculation2();
+        TestResistCalculation1();
+        TestResistCalculation2();
     }
 
     private static void CalculateDamageReductionArmor()
