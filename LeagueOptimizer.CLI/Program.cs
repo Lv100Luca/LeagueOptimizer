@@ -42,7 +42,7 @@ public static class Program
 
         Console.WriteLine(cait.CalculateResistanceDamageReduction(target, DamageType.Physical));
     }
-    //
+
 
     private static void TestResistCalculation1()
     {
