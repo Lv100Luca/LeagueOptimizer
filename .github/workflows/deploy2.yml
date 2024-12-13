@@ -33,7 +33,7 @@ jobs:
       - name: Rewrite base href
         uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
         with:
-          html_path: build_output/wwroot/index.html
+          html_path: build_output/wwwroot/index.html
           base_href: /LeagueOptimizer/
 
       - name: Upload Artifact for Deployment
