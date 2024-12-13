@@ -1,0 +1,47 @@
+name: Deploy Blazor App to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Default branch to trigger the workflow
+  workflow_dispatch:  # Allow manual triggers
+
+permissions:
+  contents: read
+  pages: write  # Grant permissions to deploy to GitHub Pages
+  id-token: write  # Required for deployment
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'  # Adjust based on your Blazor app's target version
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build Project
+        run: dotnet publish -c Release -o build_output
+
+      - name: Upload Artifact for Deployment
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: build_output/wwwroot  # The directory containing the site files
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}  # Automatically set deployment URL
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
