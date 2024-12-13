@@ -18,6 +18,7 @@ public static class Program
         CalculateDamageReductionArmor();
         TestResistCalculation1();
         TestResistCalculation2();
+        TestAbilityDamageCalculation();
     }
 
     private static void CalculateDamageReductionArmor()
