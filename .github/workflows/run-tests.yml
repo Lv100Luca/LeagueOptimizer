@@ -3,10 +3,14 @@ name: .NET Tests
 on:
   push:
     branches:
-      - main
+      - '**' # Match all branches
+    branches-ignore:
+      - 'wip/**' # Exclude branches under 'wip/'
   pull_request:
     branches:
-      - main
+      - '**'
+    branches-ignore:
+      - 'wip/**'
 
 jobs:
   build-and-test:
