@@ -1,7 +1,4 @@
 name: Deploy Blazor App to GitHub Pages
-
-env:
-  PUBLISH_DIR: bin/Release/net9.0/publish/wwwroot
   
 on:
   push:
@@ -36,7 +33,7 @@ jobs:
       - name: Rewrite base href
         uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
         with:
-          html_path: ${{ env.PUBLISH_DIR }}/index.html
+          html_path: build_output/wwroot/index.html
           base_href: /LeagueOptimizer/
 
       - name: Upload Artifact for Deployment
