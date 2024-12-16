@@ -1,8 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using LeagueOptimizer.Abstractions.Champions;
+using LeagueOptimizer.Models;
 using LeagueOptimizer.Models.Champions.Caitlyn;
 using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
+using LeagueOptimizer.Models.Champions.Stats;
 using LeagueOptimizer.Services;
 using Microsoft.Extensions.Logging;
 
@@ -60,5 +62,17 @@ public static class Program
         Console.WriteLine("=================");
         Console.WriteLine("Spell R Damage:");
         Console.Out.WriteLine(cait.CalculateSpellRDamage());
+
+        Console.WriteLine("=================");
+        Console.WriteLine("Test Ability Damage:");
+
+        var dummy = new TargetDummy
+        {
+            Health = new Resource(1000),
+            Armor = new Resistance(0),
+            MagicResist = new Resistance(0),
+        };
+
+        Console.Out.WriteLine(cait.CalculateTestAbilityDamage(dummy));
     }
 }

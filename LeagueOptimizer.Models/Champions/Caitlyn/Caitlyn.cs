@@ -1,4 +1,5 @@
 ﻿using LeagueOptimizer.Abstractions;
+using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Models.Calculations;
 using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
@@ -114,6 +115,26 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         var trapBaseDamage = AbilitiesData.SpellW.BaseDmg[AbilityLevel - 1];
 
         return trapBaseDamage + (AbilitiesData.SpellW.BonusAdScaling * AttackDamage.Bonus);
+    }
+
+    public DamageResult CalculateTestAbilityDamage(ITarget target)
+    {
+        var bonusAdScaling = 1m;
+
+        var percentMaxHpDamage = 0.5m;
+
+        var abilityBaseDamage = AttackDamage.Bonus * bonusAdScaling + 200;
+
+        Console.Out.WriteLine("Base damage: " + abilityBaseDamage);
+
+        var maxHpDamage = target.Health.Max * percentMaxHpDamage;
+
+        Console.Out.WriteLine("Target Max HP: " + target.Health.Max);
+        Console.Out.WriteLine("%: "+ maxHpDamage);
+
+        var totalDamage = abilityBaseDamage + maxHpDamage;
+
+        return new DamageResult(DamageType.Physical, totalDamage);
     }
 
     public string AbilitiesToString()
