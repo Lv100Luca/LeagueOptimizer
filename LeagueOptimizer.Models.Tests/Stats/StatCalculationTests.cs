@@ -30,13 +30,7 @@ public class StatCalculationTests
         const decimal baseValue = 580;
         const decimal growth = 107;
 
-        var statData = new StatData
-        {
-            Base = baseValue,
-            Growth = growth
-        };
-
-        var perLevelStat = new Stat(Level.From(level), statData);
+        var perLevelStat = new Stat(Level.From(level), baseValue, growth);
 
         Assert.That(perLevelStat.Total, Is.EqualTo(expectedValue).Within(0.1m));
     }
@@ -49,15 +43,9 @@ public class StatCalculationTests
         const decimal growth = 120;
         var level = Level.From(2);
 
-        var statData = new StatData
-        {
-            Base = baseValue,
-            Growth = growth
-        };
-
         const decimal expectedValue = 771.4m;
 
-        var perLevelStat = new Stat(level, statData);
+        var perLevelStat = new Stat(level, baseValue, growth);
 
         Assert.That(perLevelStat.Total, Is.EqualTo(expectedValue).Within(0.1m));
     }
@@ -74,14 +62,7 @@ public class StatCalculationTests
 
         var level = Level.From(3);
 
-        var statData = new AttackSpeedData
-        {
-            Base = baseValue,
-            Growth = growth,
-            Ratio = ratio,
-        };
-
-        var attackSpeed = new AttackSpeed(level, statData) { Bonus = bonusAttackSpeed };
+        var attackSpeed = new AttackSpeed(level, baseValue, growth, ratio) { Bonus = bonusAttackSpeed };
 
         const decimal expectedValue = 0.82065m;
 
@@ -97,13 +78,7 @@ public class StatCalculationTests
 
         var level = Level.From(8);
 
-        var statData = new StatData
-        {
-            Base = baseValue,
-            Growth = growth
-        };
-
-        var perLevelStat = new Stat(level, statData) { Bonus = bonus };
+        var perLevelStat = new Stat(level, baseValue, growth) { Bonus = bonus };
 
         const decimal expectedValue = 1672.925m;
 
