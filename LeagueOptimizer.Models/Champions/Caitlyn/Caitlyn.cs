@@ -116,25 +116,29 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         return trapBaseDamage + (AbilitiesData.SpellW.BonusAdScaling * AttackDamage.Bonus);
     }
-
     public DamageResult CalculateTestAbilityDamage(ITarget target)
     {
         var bonusAdScaling = 1m;
 
         var percentMaxHpDamage = 0.5m;
 
-        var abilityBaseDamage = AttackDamage.Bonus * bonusAdScaling + 200;
+        // var abilityBaseDamage = AttackDamage.Bonus * bonusAdScaling + 200;
 
-        Console.Out.WriteLine("Base damage: " + abilityBaseDamage);
+        // Console.Out.WriteLine("Base damage: " + abilityBaseDamage);
 
-        var maxHpDamage = target.Health.Max * percentMaxHpDamage;
+        var currentHpDamage = target.Health.Current * percentMaxHpDamage;
 
-        Console.Out.WriteLine("Target Max HP: " + target.Health.Max);
-        Console.Out.WriteLine("%: "+ maxHpDamage);
+        // Console.Out.WriteLine("Target Max HP: " + target.Health.Max);
+        // Console.Out.WriteLine("%: "+ currentHpDamage);
 
-        var totalDamage = abilityBaseDamage + maxHpDamage;
+        // var totalDamage = abilityBaseDamage + maxHpDamage;
 
-        return new DamageResult(DamageType.Physical, totalDamage);
+        return new DamageResult(DamageType.Physical, currentHpDamage);
+    }
+
+    public DamageResult Calculate1000Damage(ITarget target)
+    {
+        return new DamageResult(DamageType.Physical, 1000);
     }
 
     public string AbilitiesToString()
