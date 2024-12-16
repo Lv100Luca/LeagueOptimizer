@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Models.Champions;
 
-public abstract class Champion
+public abstract class Champion : ITarget
 {
     private readonly ILogger<Champion> logger;
 
@@ -18,9 +18,9 @@ public abstract class Champion
 
         BaseStatsData = data;
 
-        Health = new Resource(data.Health, data.HealthRegen);
+        Health = new Resource(data.Health);
 
-        Resource = new Resource(data.Resource, data.ResourceRegen);
+        Resource = new Resource(data.Resource);
 
         AttackDamage = new Stat(data.AttackDamage);
 
@@ -108,8 +108,8 @@ public abstract class Champion
     override public string ToString()
     {
         return $"{Name} (Level {Level.Value}): \n" +
-               $"  Health:          {Health.Total} (Regen: {Health.Regen.Total})\n" +
-               $"  Resource: {Resource.Total} (Regen: {Resource.Regen.Total})\n" +
+               $"  Health:          {Health.Total})\n" +
+               $"  Resource: {Resource.Total}\n" +
                $"  Attack Damage:   {AttackDamage.Total}\n" +
                $"  Attack Speed:    {AttackSpeed.Total:F2}\n" +
                $"  Armor:           {Armor.Total}\n" +
