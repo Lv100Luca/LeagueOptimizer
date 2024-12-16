@@ -7,17 +7,22 @@ namespace LeagueOptimizer.Models.Champions.Stats;
 /// <summary>
 /// Represents a simple stat with a base value and a bonus value.
 /// </summary>
-public class Stat(Level level, StatData statData) : IStat
+public class Stat(Level level, decimal startingValue, decimal growthValue = 0) : IStat
 {
-    public Stat(StatData statData) : this(Level.Default, statData)
+    public Stat(decimal baseValue, decimal bonusValue = 0) : this(Level.Default, baseValue)
+    {
+        Bonus = bonusValue;
+    }
+
+    public Stat(StatData statData) : this(Level.Default, statData.Base, statData.Growth)
     {
     }
 
-    public decimal Base { get; private set; } = Formulas.CalculatePerLevelBaseStat(level, statData.Base, statData.Growth);
+    public decimal Base { get; private set; } = Formulas.CalculatePerLevelBaseStat(level, startingValue, growthValue);
 
-    private decimal StartValue { get; set; } = statData.Base;
+    private decimal StartValue { get; set; } = startingValue;
 
-    private decimal Growth { get; set; } = statData.Growth;
+    private decimal Growth { get; set; } = growthValue;
 
     public decimal Bonus { get; set; } = 0m;
 
