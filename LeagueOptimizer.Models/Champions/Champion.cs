@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Models.Champions;
 
-public abstract class Champion : ITarget
+public abstract class Champion : IChampion
 {
     private readonly ILogger<Champion> logger;
 

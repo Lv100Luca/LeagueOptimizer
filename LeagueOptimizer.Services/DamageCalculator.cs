@@ -1,44 +1,70 @@
 using LeagueOptimizer.Abstractions;
 using LeagueOptimizer.Abstractions.Champions;
-using LeagueOptimizer.Abstractions.Champions.Stats;
 using LeagueOptimizer.Models.Calculations;
-using LeagueOptimizer.Models.Champions;
 
 namespace LeagueOptimizer.Services;
 
 public class DamageCalculator
 {
-    public DamageResult CalculateDamage(Champion champion,
+    public DamageResult CalculateDamage(
+        IChampion champion,
         ITarget target,
-        List<Func<ITarget, DamageResult>> abilitySequence)
+        List<Func<ITarget, DamageResult>> abilitySequence
+    )
     {
         var totalDamage = 0m;
 
         foreach (var ability in abilitySequence)
         {
-            var test = ability(target);
+            // todo: i hate this but it wortk
+            /*
+             * find an elegant way to do this
+             * - clone the target somehow
+             * -
+             */
+            var armor = CalculateTargetResistance(champion, target, DamageType.Physical);
+            var mr = CalculateTargetResistance(champion, target, DamageType.Magic);
 
-            var targetResistance = CalculateTargetResistance(champion, target, test.DamageType);
+            var rawAbilityDamage = ability(target);
 
-            Console.Out.WriteLine($"Target Resistance: {targetResistance:N0}");
-            Console.Out.WriteLine($"Resistance Multiplier: {1 - CalculateResistanceDamageReduction(champion, target, test.DamageType):F3}");
+            Console.Out.WriteLine("=================");
+            Console.Out.WriteLine($"Target HP:          {target.Health.Current:F2}");
+            Console.Out.WriteLine($"Target Armor:       {armor:F2}");
+            Console.Out.WriteLine($"Raw Ability Damage: {rawAbilityDamage.Damage:F2}");
 
-            totalDamage += test.Damage;
+            var damageMultiplier = rawAbilityDamage.DamageType switch
+            {
+                DamageType.Physical => ResistanceFormula(armor),
+                DamageType.Magic => ResistanceFormula(mr),
+                DamageType.True => 1,
+                _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
+            };
 
-            target.Health.Current -= test.Damage;
 
-            Console.Out.WriteLine(test);
+            var damageTaken =
+                rawAbilityDamage.Damage * damageMultiplier;
+
+            totalDamage += damageTaken;
+
+            Console.Out.WriteLine($"Damage Multiplier:  {damageMultiplier:P}");
+            Console.Out.WriteLine($"Damage Taken:       {damageTaken:F2}");
+            target.Health.Current -= damageTaken;
         }
 
         return new DamageResult(DamageType.Physical, totalDamage);
     }
 
-    public decimal CalculateResistanceDamageReduction(Champion champion, ITarget target, DamageType damageType)
+    public decimal CalculateResistanceDamageReduction(IChampion champion, ITarget target, DamageType damageType)
     {
-        return 100m / (100m + CalculateTargetResistance(champion, target, damageType));
+        return ResistanceFormula(CalculateTargetResistance(champion, target, damageType));
     }
 
-    public decimal CalculateTargetResistance(Champion champion, ITarget target, DamageType damageType)
+    public decimal ResistanceFormula(decimal resistance)
+    {
+        return 1 - (100m / (100m + resistance));
+    }
+
+    public decimal CalculateTargetResistance(IChampion champion, ITarget target, DamageType damageType)
     {
         return damageType switch
         {
@@ -90,8 +116,8 @@ public class DamageCalculator
                 return totalResistance;
             }
 
-            Console.Out.WriteLine(
-                $"Armor after flat reduction: ({baseResistance:F1}/{bonusResistance:F1}) {totalResistance:F1}");
+            // Console.Out.WriteLine(
+                // $"Armor after flat reduction: ({baseResistance:F1}/{bonusResistance:F1}) {totalResistance:F1}");
         }
 
 

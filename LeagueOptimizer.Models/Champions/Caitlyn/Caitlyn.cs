@@ -128,6 +128,8 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var currentHpDamage = target.Health.Current * percentMaxHpDamage;
 
+        target.Armor.FlatReduction += 10;
+
         // Console.Out.WriteLine("Target Max HP: " + target.Health.Max);
         // Console.Out.WriteLine("%: "+ currentHpDamage);
 
