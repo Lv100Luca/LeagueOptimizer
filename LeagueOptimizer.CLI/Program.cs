@@ -1,10 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Models;
 using LeagueOptimizer.Models.Champions.Caitlyn;
 using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
-using LeagueOptimizer.Models.Champions.Stats;
 using LeagueOptimizer.Services;
 using Microsoft.Extensions.Logging;
 
@@ -42,37 +40,38 @@ public static class Program
             TargetIsChampion = true,
             HasHeadshotActive = true,
         };
+        //
+        // Console.WriteLine(cait);
+        //
+        // cait.Level = Level.From(18);
+        //
+        // Console.WriteLine(cait);
+        //
+        // Console.WriteLine("=================");
+        // Console.Out.WriteLine(cait.AbilitiesToString());
+        //
+        // Console.WriteLine("=================");
+        // Console.WriteLine("Normal Attack Damage:");
+        // Console.Out.WriteLine("Has IE: " + cait.HasIE);
+        // Console.Out.WriteLine("Headshot: " + cait.HasHeadshotActive);
+        // Console.Out.WriteLine("Target is Trapped: " + cait.TargetIsTrapped);
+        // Console.WriteLine(cait.CalculateNormalAttackDamage());
+        //
+        // Console.WriteLine("=================");
+        // Console.WriteLine("Spell R Damage:");
+        // Console.Out.WriteLine(cait.CalculateSpellRDamage());
+        //
+        // Console.WriteLine("=================");
+        // Console.WriteLine("Test Ability Damage:");
 
-        Console.WriteLine(cait);
+        var dummy = new TargetDummy(1000, 50, 0);
 
-        cait.Level = Level.From(18);
+        // Console.Out.WriteLine(cait.CalculateTestAbilityDamage(dummy));
 
-        Console.WriteLine(cait);
+        var calculator = new DamageCalculator();
 
-        Console.WriteLine("=================");
-        Console.Out.WriteLine(cait.AbilitiesToString());
+        var total = calculator.CalculateDamage(cait, dummy, [cait.CalculateTestAbilityDamage,cait.CalculateTestAbilityDamage,cait.CalculateTestAbilityDamage]);
 
-        Console.WriteLine("=================");
-        Console.WriteLine("Normal Attack Damage:");
-        Console.Out.WriteLine("Has IE: " + cait.HasIE);
-        Console.Out.WriteLine("Headshot: " + cait.HasHeadshotActive);
-        Console.Out.WriteLine("Target is Trapped: " + cait.TargetIsTrapped);
-        Console.WriteLine(cait.CalculateNormalAttackDamage());
-
-        Console.WriteLine("=================");
-        Console.WriteLine("Spell R Damage:");
-        Console.Out.WriteLine(cait.CalculateSpellRDamage());
-
-        Console.WriteLine("=================");
-        Console.WriteLine("Test Ability Damage:");
-
-        var dummy = new TargetDummy
-        {
-            Health = new Resource(1000),
-            Armor = new Resistance(0),
-            MagicResist = new Resistance(0),
-        };
-
-        Console.Out.WriteLine(cait.CalculateTestAbilityDamage(dummy));
+        Console.Out.WriteLine("Total: " + total);
     }
 }
