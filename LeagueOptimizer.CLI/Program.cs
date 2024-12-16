@@ -64,13 +64,14 @@ public static class Program
         // Console.WriteLine("=================");
         // Console.WriteLine("Test Ability Damage:");
 
-        var dummy = new TargetDummy(1000, 50, 0);
+        var dummy = new TargetDummy(1000, 100, 0);
 
         // Console.Out.WriteLine(cait.CalculateTestAbilityDamage(dummy));
 
         var calculator = new DamageCalculator();
 
-        var total = calculator.CalculateDamage(cait, dummy, [cait.CalculateTestAbilityDamage,cait.CalculateTestAbilityDamage,cait.CalculateTestAbilityDamage]);
+        var total = calculator.CalculateDamage(cait, dummy,
+            [cait.CalculateTestAbilityDamage, cait.CalculateTestAbilityDamage, cait.CalculateTestAbilityDamage]);
 
         Console.Out.WriteLine("Total: " + total);
     }
