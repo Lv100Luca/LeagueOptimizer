@@ -11,10 +11,11 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 {
     public const string FilePath = "Champions/Caitlyn/Caitlyn.json";
 
-    override public string Name { get; set; } = "Caitlyn";
+    override public string Name { get; } = "Caitlyn";
 
     public CaitlynAbilityData AbilitiesData { get; init; } = data.Abilities;
 
+    // champion specific flags
     public bool HasHeadshotActive { get; set; } = false;
 
     public bool TargetIsTrapped { get; set; } = false;

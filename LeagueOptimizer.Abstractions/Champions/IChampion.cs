@@ -4,7 +4,7 @@ namespace LeagueOptimizer.Abstractions.Champions;
 
 public interface IChampion : ITarget
 {
-    public string Name { get; set; }
+    public string Name { get; }
 
     public Level Level { get; set; }
 

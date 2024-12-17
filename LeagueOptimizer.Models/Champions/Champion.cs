@@ -1,6 +1,7 @@
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Abstractions.Champions.Stats;
+using LeagueOptimizer.Models.Champions._Stats;
 using LeagueOptimizer.Models.Champions.Stats;
 using Microsoft.Extensions.Logging;
 
@@ -35,7 +36,7 @@ public abstract class Champion : IChampion
         MovementSpeed = new BasicStat(data.MovementSpeed);
     }
 
-    public abstract string Name { get; set; }
+    public abstract string Name { get; }
 
     private Level _level = Level.Default;
     public Level Level
@@ -122,4 +123,7 @@ public abstract class Champion : IChampion
                $"  Crit Chance:     {CritChance.Total:P}\n" +
                $"  Crit Damage:     {CritDamage.Total:P}\n";
     }
+
+    // thresholds for some stats
+    protected decimal MaxCritChance { get; set; } = 1m;
 }
