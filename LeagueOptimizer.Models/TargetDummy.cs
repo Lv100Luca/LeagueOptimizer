@@ -1,6 +1,6 @@
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Stats;
-using LeagueOptimizer.Models.Champions.Stats;
+using LeagueOptimizer.Models.Champions._Stats;
 
 namespace LeagueOptimizer.Models;
 

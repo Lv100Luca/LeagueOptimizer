@@ -2,7 +2,7 @@ using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Abstractions.Champions.Stats;
 
-namespace LeagueOptimizer.Models.Champions.Stats;
+namespace LeagueOptimizer.Models.Champions._Stats;
 
 public class AttackSpeed(Level level, decimal baseValue, decimal growthValue = 0, decimal ratio = 0.625m) : IAttackSpeed
 {

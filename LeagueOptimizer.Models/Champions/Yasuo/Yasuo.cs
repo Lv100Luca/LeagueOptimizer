@@ -1,7 +1,7 @@
 using LeagueOptimizer.Abstractions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Models.Calculations;
-using LeagueOptimizer.Models.Champions.Stats;
+using LeagueOptimizer.Models.Champions._Stats;
 using LeagueOptimizer.Models.Champions.Yasuo.AbilityData;
 using Microsoft.Extensions.Logging;
 

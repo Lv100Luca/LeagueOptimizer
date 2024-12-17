@@ -2,7 +2,7 @@ using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Abstractions.Champions.Stats;
 
-namespace LeagueOptimizer.Models.Champions.Stats;
+namespace LeagueOptimizer.Models.Champions._Stats;
 
 public class Resistance(Level level, decimal startingValue, decimal growthValue = 0) : IResistance
 {

@@ -2,7 +2,6 @@ using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Abstractions.Champions.Stats;
 using LeagueOptimizer.Models.Champions._Stats;
-using LeagueOptimizer.Models.Champions.Stats;
 using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Models.Champions;

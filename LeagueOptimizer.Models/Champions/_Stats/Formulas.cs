@@ -1,6 +1,6 @@
 using LeagueOptimizer.Abstractions.Champions;
 
-namespace LeagueOptimizer.Models.Champions.Stats;
+namespace LeagueOptimizer.Models.Champions._Stats;
 
 public static class Formulas
 {
