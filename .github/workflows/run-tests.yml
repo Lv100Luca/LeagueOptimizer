@@ -37,4 +37,3 @@ jobs:
         name: Test Result
         path: LeagueOptimizer.Models.Tests/TestResults/TestResult.trx
         reporter: dotnet-trx
-        token: ${{ github.PERSONAL_ACCESS_TOKEN}}
