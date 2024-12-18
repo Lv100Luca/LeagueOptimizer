@@ -1,4 +1,5 @@
 ﻿using LeagueOptimizer.Abstractions;
+using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Models.Calculations;
 using LeagueOptimizer.Models.Champions.Caitlyn.AbilityData;
@@ -10,10 +11,11 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 {
     public const string FilePath = "Champions/Caitlyn/Caitlyn.json";
 
-    override public string Name { get; set; } = "Caitlyn";
+    override public string Name { get; } = "Caitlyn";
 
     public CaitlynAbilityData AbilitiesData { get; init; } = data.Abilities;
 
+    // champion specific flags
     public bool HasHeadshotActive { get; set; } = false;
 
     public bool TargetIsTrapped { get; set; } = false;
@@ -86,7 +88,14 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         if (!HasHeadshotActive && !TargetIsTrapped)
             return 0;
 
-        var scalingIndex = Math.Clamp((Level.Value - 1) / 6, 0, 2);
+        // todo: move to helper
+        var scalingIndex = Level.Value switch
+        {
+            >= 1 and <=6 => 0,
+            >= 7 and <=12 => 1,
+            >= 13 and <=18 => 2,
+            _ => throw new ArgumentOutOfRangeException(nameof(Level))
+        };
 
         var baseHeadshotScaling = TargetIsChampion
             ? AbilitiesData.Passive.ChampionTotalAdScaling[scalingIndex]
@@ -114,6 +123,32 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         var trapBaseDamage = AbilitiesData.SpellW.BaseDmg[AbilityLevel - 1];
 
         return trapBaseDamage + (AbilitiesData.SpellW.BonusAdScaling * AttackDamage.Bonus);
+    }
+    public DamageResult CalculateTestAbilityDamage(ITarget target)
+    {
+        var bonusAdScaling = 1m;
+
+        var percentMaxHpDamage = 0.5m;
+
+        // var abilityBaseDamage = AttackDamage.Bonus * bonusAdScaling + 200;
+
+        // Console.Out.WriteLine("Base damage: " + abilityBaseDamage);
+
+        var currentHpDamage = target.Health.Current * percentMaxHpDamage;
+
+        target.Armor.FlatReduction += 10;
+
+        // Console.Out.WriteLine("Target Max HP: " + target.Health.Max);
+        // Console.Out.WriteLine("%: "+ currentHpDamage);
+
+        // var totalDamage = abilityBaseDamage + maxHpDamage;
+
+        return new DamageResult(DamageType.Physical, currentHpDamage);
+    }
+
+    public DamageResult Calculate1000Damage(ITarget target)
+    {
+        return new DamageResult(DamageType.Physical, 1000);
     }
 
     public string AbilitiesToString()

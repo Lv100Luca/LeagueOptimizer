@@ -1,11 +1,11 @@
 using LeagueOptimizer.Abstractions.Champions;
 
-namespace LeagueOptimizer.Models.Champions.Stats;
+namespace LeagueOptimizer.Models.Champions._Stats;
 
 public static class Formulas
 {
-    private const decimal SchizoPerLevelMultiplier1 = 0.7025m;
-    private const decimal SchizoPerLevelMultiplier2 = 0.0175m;
+    public const decimal SchizoPerLevelMultiplier1 = 0.7025m;
+    public const decimal SchizoPerLevelMultiplier2 = 0.0175m;
 
     public static decimal CalculatePerLevelBonusAttackSpeed(Level level, decimal growth)
     {

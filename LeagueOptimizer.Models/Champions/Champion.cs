@@ -1,12 +1,12 @@
 using LeagueOptimizer.Abstractions.Champions;
 using LeagueOptimizer.Abstractions.Champions.Data;
 using LeagueOptimizer.Abstractions.Champions.Stats;
-using LeagueOptimizer.Models.Champions.Stats;
+using LeagueOptimizer.Models.Champions._Stats;
 using Microsoft.Extensions.Logging;
 
 namespace LeagueOptimizer.Models.Champions;
 
-public abstract class Champion
+public abstract class Champion : IChampion
 {
     private readonly ILogger<Champion> logger;
 
@@ -18,9 +18,9 @@ public abstract class Champion
 
         BaseStatsData = data;
 
-        Health = new Resource(data.Health, data.HealthRegen);
+        Health = new Resource(data.Health);
 
-        Resource = new Resource(data.Resource, data.ResourceRegen);
+        Resource = new Resource(data.Resource);
 
         AttackDamage = new Stat(data.AttackDamage);
 
@@ -35,7 +35,7 @@ public abstract class Champion
         MovementSpeed = new BasicStat(data.MovementSpeed);
     }
 
-    public abstract string Name { get; set; }
+    public abstract string Name { get; }
 
     private Level _level = Level.Default;
     public Level Level
@@ -108,8 +108,8 @@ public abstract class Champion
     override public string ToString()
     {
         return $"{Name} (Level {Level.Value}): \n" +
-               $"  Health:          {Health.Total} (Regen: {Health.Regen.Total})\n" +
-               $"  Resource: {Resource.Total} (Regen: {Resource.Regen.Total})\n" +
+               $"  Health:          {Health.Total})\n" +
+               $"  Resource: {Resource.Total}\n" +
                $"  Attack Damage:   {AttackDamage.Total}\n" +
                $"  Attack Speed:    {AttackSpeed.Total:F2}\n" +
                $"  Armor:           {Armor.Total}\n" +
@@ -122,4 +122,7 @@ public abstract class Champion
                $"  Crit Chance:     {CritChance.Total:P}\n" +
                $"  Crit Damage:     {CritDamage.Total:P}\n";
     }
+
+    // thresholds for some stats
+    protected decimal MaxCritChance { get; set; } = 1m;
 }
