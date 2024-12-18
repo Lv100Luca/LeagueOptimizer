@@ -5,10 +5,8 @@ on:
     branches:
       - '**' # Match all branches
       
-permissions:
-  contents: write
-  pull-requests: write
-  
+permissions: write-all
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
