@@ -33,5 +33,5 @@ jobs:
       uses: dorny/test-reporter@v1.9.1
       with:
         name: Test Result
-        path: LeagueOptimizer.Models.Tests/TestResults/TestResult.trx
+        path: '**/*.trx'
         reporter: dotnet-trx
