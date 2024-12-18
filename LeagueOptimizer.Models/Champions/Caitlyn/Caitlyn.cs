@@ -88,7 +88,14 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
         if (!HasHeadshotActive && !TargetIsTrapped)
             return 0;
 
-        var scalingIndex = Math.Clamp((Level.Value - 1) / 6, 0, 2);
+        // todo: move to helper
+        var scalingIndex = Level.Value switch
+        {
+            >= 1 and <=6 => 0,
+            >= 7 and <=12 => 1,
+            >= 13 and <=18 => 2,
+            _ => throw new ArgumentOutOfRangeException(nameof(Level))
+        };
 
         var baseHeadshotScaling = TargetIsChampion
             ? AbilitiesData.Passive.ChampionTotalAdScaling[scalingIndex]
