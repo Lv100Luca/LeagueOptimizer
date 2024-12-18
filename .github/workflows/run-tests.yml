@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - '**' # Match all branches
+      
+permissions: write-all
 
 jobs:
   build-and-test:
@@ -18,15 +20,18 @@ jobs:
       with:
         dotnet-version: '9.0.x' # Specify your .NET version here
 
-    - name: Restore dependencies
-      run: dotnet restore
-
     - name: Run tests
-      run: dotnet test --configuration Release --logger "trx;LogFileName=TestResults/TestResults.trx"
+      run: dotnet test --configuration Release --logger "trx;LogFileName=TestResult.trx"
 
-    - name: Publish test results
-      if: always()
+    - name: Upload Test Results
       uses: actions/upload-artifact@v3
       with:
-        name: TestResults
-        path: '**/TestResults/*.trx'
+        name: test-results
+        path: TestResults.trx
+
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.9.1
+      with:
+        name: Test Result
+        path: LeagueOptimizer.Models.Tests/TestResults/TestResult.trx
+        reporter: dotnet-trx
