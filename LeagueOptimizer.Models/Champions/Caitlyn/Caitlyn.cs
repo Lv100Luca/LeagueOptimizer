@@ -130,18 +130,9 @@ public class Caitlyn(ChampionData<CaitlynAbilityData> data, ILogger<Caitlyn> log
 
         var percentMaxHpDamage = 0.5m;
 
-        // var abilityBaseDamage = AttackDamage.Bonus * bonusAdScaling + 200;
-
-        // Console.Out.WriteLine("Base damage: " + abilityBaseDamage);
-
         var currentHpDamage = target.Health.Current * percentMaxHpDamage;
 
         target.Armor.FlatReduction += 10;
-
-        // Console.Out.WriteLine("Target Max HP: " + target.Health.Max);
-        // Console.Out.WriteLine("%: "+ currentHpDamage);
-
-        // var totalDamage = abilityBaseDamage + maxHpDamage;
 
         return new DamageResult(DamageType.Physical, currentHpDamage);
     }
