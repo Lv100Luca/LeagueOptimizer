@@ -68,6 +68,10 @@ public static class Program
 
         // Console.Out.WriteLine(cait.CalculateTestAbilityDamage(dummy));
 
+
+
+
+
         var calculator = new DamageCalculator();
 
         var total = calculator.CalculateDamage(cait, dummy,
