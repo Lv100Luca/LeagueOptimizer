@@ -1,0 +1,100 @@
+{
+  "base_stats": {
+    "health": {
+      "base": 590,
+      "growth": 110
+    },
+    "health_regen": {
+      "base": 6.5,
+      "growth": 0.9
+    },
+    "attack_damage": {
+      "base": 60,
+      "growth": 3
+    },
+    "attack_speed": {
+      "base": 0.697,
+      "growth": 0.035,
+      "ratio": 0.67
+    },
+    "armor": {
+      "base": 32,
+      "growth": 4.6
+    },
+    "magic_resist": {
+      "base": 32,
+      "growth": 4.6
+    },
+    "attack_range": 175,
+    "movement_speed": 345
+  },
+  "abilities": {
+    "passive": {
+      "crit_damage_multiplier": 0.9,
+      "excess_crit_bonus_ad_ratio": 0.5,
+      "shield_base_value": 125,
+      "shield_growth_value": 475,
+      "shield_growth_value_divider": 17,
+      "flow_generation": [
+        59,
+        52.5,
+        47
+      ]
+    },
+    "spell_q": {
+      "base_cooldown": 4,
+      "bonus_attack_speed_cooldown_reduction": 0.01,
+      "bonus_attack_speed_cooldown_reduction_threshold": 0.0167,
+      "base_dmg": [
+        20,
+        45,
+        70,
+        95,
+        120
+      ],
+      "total_ad_scaling": 1.05,
+      "knockup_duration": 0.6,
+      "enhanced_knockup_duration": 0.9
+    },
+    "spell_w": {
+      "cooldown": [25,23,21,19,17],
+      "width": [
+        320,
+        390,
+        460,
+        530,
+        600
+      ]
+    },
+    "spell_e": {
+      "cooldown": [
+        0.5,
+        0.4,
+        0.3,
+        0.2,
+        0.1
+      ],
+      "base_dmg": [
+        70,
+        85,
+        100,
+        115,
+        130
+      ],
+      "bonus_ad_scaling": 0.2,
+      "ap_scaling": 0.6,
+      "bonus_damage_per_stack": 0.25,
+      "max_stacks": 4
+    },
+    "spell_r": {
+      "cooldown": [70,50,30],
+      "base_dmg": [
+        200,
+        350,
+        500
+      ],
+      "bonus_ad_scaling": 1.5,
+      "bonus_armor_shred_on_crit": 0.6
+    }
+  }
+}
